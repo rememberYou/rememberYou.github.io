@@ -41,6 +41,18 @@ const styles = (theme: Theme) =>
       fontSize: theme.spacing(4),
       color: '#C64D42',
     },
+    mainTitle: {
+      fontSize: "2.125rem",
+      [theme.breakpoints.up('sm')]: {
+        fontSize: "3rem",
+      },
+    },
+    secondTitle: {
+      fontSize: "1.25rem",
+      [theme.breakpoints.up('sm')]: {
+        fontSize: "1.5rem",
+      },
+    },
     picture: {
       display: 'flex',
       height: '40vh',
