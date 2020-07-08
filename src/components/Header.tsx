@@ -58,12 +58,13 @@ const styles = (theme: Theme) =>
     },
     picture: {
       display: 'flex',
-      height: '40vh',
-      width: '30vh',
-      marginLeft: theme.spacing(3),
+      height: '60vh',
+      width: '50vh',
+      marginLeft: theme.spacing(4),
       [theme.breakpoints.up('sm')]: {
-        height: '60vh',
-        width: '50vh',
+        height: '70vh',
+        width: '60vh',
+        marginLeft: theme.spacing(8),
       },
       [theme.breakpoints.up('md')]: {
         alignSelf: 'flex-end',
@@ -75,10 +76,15 @@ const styles = (theme: Theme) =>
     root: {
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       alignItems: 'center',
       height: '100vh',
+      overflow: 'hidden',
+      [theme.breakpoints.up('sm')]: {
+        border: '1px solid black',
+      },
       [theme.breakpoints.up('md')]: {
+        justifyContent: 'flex-end',
         flexDirection: 'row',
       },
     },
