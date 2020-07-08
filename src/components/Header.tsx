@@ -25,6 +25,9 @@ const styles = (theme: Theme) =>
       width: '100%',
       backgroundColor: '#fafafa',
     },
+    content: {
+      paddingBottom: '0'
+    },
     gitHubIcon: {
       fontSize: theme.spacing(4),
       color: '#181410',
@@ -94,7 +97,7 @@ class Header extends React.Component<HeaderProps> {
       <Fade in={true} timeout={1000}>
         <div className={classes.root}>
           <Card className={classes.card} elevation={0}>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Typography
                 align="center"
                 className={classes.mainTitle}
