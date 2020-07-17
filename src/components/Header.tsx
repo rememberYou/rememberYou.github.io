@@ -80,9 +80,6 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       height: '100vh',
       overflow: 'hidden',
-      [theme.breakpoints.up('sm')]: {
-        border: '1px solid black',
-      },
       [theme.breakpoints.up('md')]: {
         justifyContent: 'flex-end',
         flexDirection: 'row',
