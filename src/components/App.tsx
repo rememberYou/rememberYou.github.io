@@ -1,16 +1,10 @@
 import * as React from 'react';
-import {
-  CssBaseline,
-  MuiThemeProvider,
-  WithStyles,
-  createStyles,
-  withStyles,
-} from '@material-ui/core';
+import { CssBaseline, MuiThemeProvider, createStyles, makeStyles } from '@material-ui/core';
 
 import HomePage from '../pages/HomePage';
 import theme from '../theme';
 
-const styles = () =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
@@ -18,24 +12,19 @@ const styles = () =>
       justifyContent: 'center',
       height: '100vh',
     },
-  });
+  }),
+);
 
-interface AppProps extends WithStyles<typeof styles> {
-  classes: any;
-}
+const App = () => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <HomePage />
+      </MuiThemeProvider>
+    </div>
+  );
+};
 
-class App extends React.Component<AppProps> {
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.root}>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <HomePage />
-        </MuiThemeProvider>
-      </div>
-    );
-  }
-}
-
-export default withStyles(styles)(App);
+export default App;
