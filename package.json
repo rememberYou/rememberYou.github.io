@@ -1,23 +1,28 @@
 {
   "name": "personal-website",
   "version": "1.0.0",
-  "main": "index.js",
-  "author": "Terencio Agozzino",
-  "bugs": "https://github.com/rememberYou/rememberYou.github.io/issues",
-  "description": "The personal website of Terencio Agozzino",
   "private": true,
+  "description": "The personal website of Terencio Agozzino",
   "homepage": "https://rememberyou.github.io/",
-  "license": "MIT",
-  "scripts": {
-    "build": "webpack --mode production",
-    "clean": "rimraf dist/",
-    "dev": "webpack-dev-server --mode development --open --hot --progress",
-    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix",
-    "deploy": "yarn build && gh-pages -d dist -b master"
-  },
+  "bugs": "https://github.com/rememberYou/rememberYou.github.io/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/rememberYou/rememberYou.github.io.git"
+  },
+  "license": "MIT",
+  "author": "Terencio Agozzino",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "clean": "rimraf dist/",
+    "deploy": "yarn build && gh-pages -d dist -b master",
+    "dev": "webpack-dev-server --mode development --open --hot --progress",
+    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -55,10 +60,5 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
   }
 }
