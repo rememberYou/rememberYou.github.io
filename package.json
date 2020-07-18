@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "clean": "rimraf dist/",
+    "clean": "rimraf dist",
     "deploy": "yarn build && gh-pages -d dist -b master",
     "dev": "webpack-dev-server --mode development --open --hot --progress",
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix"
