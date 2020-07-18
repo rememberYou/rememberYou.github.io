@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Terencio Agozzino",
+  "bugs": "https://github.com/rememberYou/rememberYou.github.io/issues",
+  "description": "The personal website of Terencio Agozzino",
+  "private": true,
+  "homepage": "https://rememberyou.github.io/",
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
@@ -11,7 +15,10 @@
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix",
     "deploy": "yarn build && gh-pages -d dist -b master"
   },
-  "repository": "git@github.com:rememberYou/rememberYou.github.io.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rememberYou/rememberYou.github.io.git"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
