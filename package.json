@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "clean": "rimraf dist/",
     "dev": "webpack-dev-server --mode development --open --hot --progress",
-    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix"
+    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix",
+    "deploy": "yarn build && gh-pages -d dist -b master"
   },
   "repository": "git@github.com:rememberYou/rememberYou.github.io.git",
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "file-loader": "^6.0.0",
+    "gh-pages": "^3.1.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "image-webpack-loader": "^6.0.0",
