@@ -3,5 +3,5 @@ interface HeaderProps {
     subtitle: JSX.Element;
     title: string;
 }
-declare const Header: (props: HeaderProps) => JSX.Element;
+declare const Header: ({ subtitle, title }: HeaderProps) => JSX.Element;
 export default Header;
