@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import Header from '../components/Header';
-import { subtitle, title } from '../constants/header';
+import { HEADER } from '../constants/header';
 
 const Home = () => {
-  return <Header title={title} subtitle={subtitle} />;
+  return <Header title={HEADER.title} subtitle={HEADER.subtitle} />;
 };
 
 export default Home;
