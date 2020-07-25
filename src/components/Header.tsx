@@ -94,9 +94,8 @@ interface HeaderProps {
   title: string;
 }
 
-const Header = (props: HeaderProps) => {
+const Header = ({ subtitle, title }: HeaderProps) => {
   const classes = useStyles();
-  const { subtitle, title } = props;
   return (
     <Fade in={true} timeout={1000}>
       <div className={classes.root}>
