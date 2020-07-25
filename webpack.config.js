@@ -1,11 +1,17 @@
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+const faviconWebpack = new FaviconsWebpackPlugin({
+  logo: './src/assets/logo.png',
+  cache: true,
+  inject: true,
+});
+
 const htmlPlugin = new HtmlWebpackPlugin({
   title: 'Terencio Agozzino',
-  template: './src/index.html',
+  template: './public/index.html',
   filename: './index.html',
-  favicon: './src/assets/favicon.png',
 });
 
 module.exports = (env, argv) => {
@@ -115,6 +121,6 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       publicPath: '/',
     },
-    plugins: [htmlPlugin],
+    plugins: [htmlPlugin, faviconWebpack],
   };
 };
