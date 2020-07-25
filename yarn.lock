@@ -3617,6 +3617,11 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.12.1.tgz#de54a6205311b93d60398ebc01cf7015682312b6"
   integrity sha512-tmRv0AVuR7ZyouUHLeNSiO6pqulF7dYa3s19c6t+wz9LD69/uSzdMxJ2S91nTI9U3rt/IldxpzMOFejp6f0hjg==
 
+fontsource-cinzel-decorative@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/fontsource-cinzel-decorative/-/fontsource-cinzel-decorative-2.2.6.tgz#656e0b992a5ad6cd70dc8fddda110f8c62affe1c"
+  integrity sha512-5tX/I8JMK4ybOFk0/av3yNS5bdJF3mEIaaQ8lPHln28pCxIEK2L2/+w7KiacufrPxoB7f8IUY45YPisdz+H07w==
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"

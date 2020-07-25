@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#C64D42',
     },
     mainTitle: {
+      fontFamily: 'Cinzel Decorative',
       fontSize: '2.125rem',
       [theme.breakpoints.up('sm')]: {
         fontSize: '3rem',
