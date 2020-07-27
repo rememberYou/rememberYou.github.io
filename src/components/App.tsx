@@ -5,10 +5,10 @@ import HomePage from '../pages/HomePage';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
+      display: 'grid',
+      placeItems: 'center',
       height: '100vh',
+      width: '100%',
     },
   }),
 );
