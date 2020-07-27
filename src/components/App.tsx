@@ -18,7 +18,9 @@ const App = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <HomePage />
+      <main>
+        <HomePage />
+      </main>
     </div>
   );
 };
