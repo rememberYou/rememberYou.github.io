@@ -1,5 +1,4 @@
-/// <reference types="react" />
 export declare const HEADER: {
-    subtitle: JSX.Element;
+    subtitle: string;
     title: string;
 };
