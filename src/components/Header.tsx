@@ -4,18 +4,13 @@ import {
   Card,
   CardContent,
   Fade,
-  IconButton,
   Theme,
   Typography,
   createStyles,
   makeStyles,
 } from '@material-ui/core';
 
-import EmailIcon from '@material-ui/icons/Email';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-
-import { EMAIL, GITHUB, LINKEDIN } from '../constants/contacts';
+import SocialButtons from './SocialButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,22 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       paddingBottom: '0',
-    },
-    gitHubIcon: {
-      fontSize: theme.spacing(4),
-      color: '#181410',
-    },
-    icons: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    linkedInIcon: {
-      fontSize: theme.spacing(4),
-      color: '#0075B5',
-    },
-    mailIcon: {
-      fontSize: theme.spacing(4),
-      color: '#C64D42',
     },
     mainTitle: {
       fontFamily: 'Cinzel Decorative',
@@ -115,22 +94,7 @@ const Header = ({ subtitle, title }: HeaderProps) => {
               {subtitle}
             </Typography>
           </CardContent>
-          <div className={classes.icons}>
-            <IconButton aria-label="GitHub" target="_blank" href={GITHUB}>
-              <GitHubIcon className={classes.gitHubIcon} />
-            </IconButton>
-            <IconButton color="primary" aria-label="LinkedIn" target="_blank" href={LINKEDIN}>
-              <LinkedInIcon className={classes.linkedInIcon} />
-            </IconButton>
-            <IconButton
-              color="secondary"
-              aria-label="Mail"
-              target="_blank"
-              href={`mailto:${EMAIL}`}
-            >
-              <EmailIcon className={classes.mailIcon} />
-            </IconButton>
-          </div>
+          <SocialButtons />
         </Card>
         <Avatar
           alt="Terencio Agozzino"
