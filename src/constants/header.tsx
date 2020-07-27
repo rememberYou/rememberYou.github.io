@@ -1,6 +1,4 @@
-import * as React from 'react';
-
 export const HEADER = {
-  subtitle: <div>Master's Student in Computer & Systems Engineering</div>,
+  subtitle: "Master's Student in Computer & Systems Engineering",
   title: 'Terencio Agozzino',
 };

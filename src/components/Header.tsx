@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface HeaderProps {
-  subtitle: JSX.Element;
+  subtitle: string;
   title: string;
 }
 
