@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { CssBaseline, createStyles, makeStyles } from '@material-ui/core';
-
 import HomePage from '../pages/HomePage';
 
 const useStyles = makeStyles(() =>

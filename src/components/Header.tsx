@@ -9,7 +9,6 @@ import {
   createStyles,
   makeStyles,
 } from '@material-ui/core';
-
 import SocialButtons from './SocialButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
