@@ -80,8 +80,8 @@ const Header = ({ subtitle, title }: HeaderProps) => {
             >
               {subtitle}
             </Typography>
+            <SocialButtons />
           </CardContent>
-          <SocialButtons />
         </Card>
         <Avatar
           alt="Terencio Agozzino"
