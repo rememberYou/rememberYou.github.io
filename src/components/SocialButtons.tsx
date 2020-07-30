@@ -24,17 +24,18 @@ const SocialButtons = () => {
       {SOCIAL_LINKS.map((link: any, index: number) => {
         const IconTag = link.icon;
         return (
-          <IconButton
-            key={index}
-            className={classes.button}
-            href={link.url}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Tooltip title={link.title}>
+          <Tooltip title={link.title}>
+            <IconButton
+              key={index}
+              aria-label={link.label}
+              className={classes.button}
+              href={link.url}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <IconTag className={classes.icon} style={{ color: link.color }} />
-            </Tooltip>
-          </IconButton>
+            </IconButton>
+          </Tooltip>
         );
       })}
     </div>
