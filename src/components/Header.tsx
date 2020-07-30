@@ -23,18 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       paddingBottom: '0',
     },
-    mainTitle: {
-      fontFamily: 'Cinzel Decorative',
-      fontSize: '2.125rem',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '3rem',
-      },
-    },
-    secondTitle: {
-      fontSize: '1.25rem',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.5rem',
-      },
     },
     picture: {
       display: 'flex',
@@ -80,16 +68,16 @@ const Header = ({ subtitle, title }: HeaderProps) => {
       <div className={classes.root}>
         <Card className={classes.card} elevation={0}>
           <CardContent className={classes.content}>
-            <Typography
-              align="center"
-              className={classes.mainTitle}
-              variant="h3"
-              component="h1"
-              gutterBottom
-            >
+            <Typography align="center" variant="h3" component="h1" gutterBottom>
               {title}
             </Typography>
-            <Typography align="center" variant="h5" color="textSecondary" component="h2">
+            <Typography
+              align="center"
+              variant="h5"
+              color="textSecondary"
+              component="h2"
+              gutterBottom
+            >
               {subtitle}
             </Typography>
           </CardContent>
