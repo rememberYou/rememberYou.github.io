@@ -7,8 +7,8 @@ const useStyles = makeStyles(() =>
     root: {
       display: 'grid',
       placeItems: 'center',
-      height: '100vh',
       width: '100%',
+      height: '100vh',
     },
   }),
 );
