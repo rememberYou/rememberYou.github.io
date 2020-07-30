@@ -1,3 +1,3 @@
 /// <reference types="react" />
-declare const Home: () => JSX.Element;
-export default Home;
+declare const HomePage: () => JSX.Element;
+export default HomePage;
