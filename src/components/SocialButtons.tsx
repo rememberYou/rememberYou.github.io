@@ -24,7 +24,13 @@ const SocialButtons = () => {
       {SOCIAL_LINKS.map((link: any, index: number) => {
         const IconTag = link.icon;
         return (
-          <IconButton key={index} className={classes.button} target="_blank" href={link.url}>
+          <IconButton
+            key={index}
+            className={classes.button}
+            href={link.url}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <Tooltip title={link.title}>
               <IconTag className={classes.icon} style={{ color: link.color }} />
             </Tooltip>
