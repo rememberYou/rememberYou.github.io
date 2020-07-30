@@ -30,7 +30,7 @@ const SocialButtons = () => {
               aria-label={link.label}
               className={classes.button}
               href={link.url}
-              rel="noopener noreferrer"
+              rel="noreferrer"
               target="_blank"
             >
               <IconTag className={classes.icon} style={{ color: link.color }} />
