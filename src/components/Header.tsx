@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {
   Avatar,
-  Card,
-  CardContent,
   Fade,
+  Paper,
   Theme,
   Typography,
   createStyles,
@@ -13,44 +12,49 @@ import SocialButtons from './SocialButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: {
+    paper: {
+      gridArea: 'paper',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      width: '100%',
-      backgroundColor: '#fafafa',
-    },
-    content: {
-      paddingBottom: '0',
-    },
+      backgroundColor: theme.palette.background.default,
     },
     picture: {
-      display: 'flex',
-      height: '60vh',
-      width: '50vh',
-      marginLeft: theme.spacing(4),
+      gridArea: 'picture',
+      justifySelf: 'center',
+      alignSelf: 'end',
+      width: '40vh',
+      maxWidth: '100%',
+      height: 'auto',
       [theme.breakpoints.up('sm')]: {
-        height: '70vh',
-        width: '60vh',
-        marginLeft: theme.spacing(8),
+        width: '45vh',
       },
       [theme.breakpoints.up('md')]: {
-        alignSelf: 'flex-end',
-        height: '80vh',
-        width: '70vh',
-        marginLeft: theme.spacing(0),
+        justifySelf: 'start',
+        width: '65vh',
       },
     },
     root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      height: '100vh',
-      overflow: 'hidden',
+      display: 'grid',
+      rowGap: '30px',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gridTemplateAreas: `
+        'paper paper paper'
+        'picture picture picture'
+     `,
+      width: '100%',
+      height: '100%',
       [theme.breakpoints.up('md')]: {
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
+        rowGap: '0',
+        columnGap: '50px',
+        gridTemplateRows: 'repeat(4, 1fr)',
+        gridTemplateColumns: 'repeat(12, 1fr)',
+        gridTemplateAreas: `
+          'paper paper paper paper paper paper paper picture picture picture picture picture'
+          'paper paper paper paper paper paper paper picture picture picture picture picture'
+          'paper paper paper paper paper paper paper picture picture picture picture picture'
+          'paper paper paper paper paper paper paper picture picture picture picture picture'
+        `,
       },
     },
   }),
@@ -64,25 +68,17 @@ interface HeaderProps {
 const Header = ({ subtitle, title }: HeaderProps) => {
   const classes = useStyles();
   return (
-    <Fade in={true} timeout={1000}>
+    <Fade in={true} timeout={2000}>
       <div className={classes.root}>
-        <Card className={classes.card} elevation={0}>
-          <CardContent className={classes.content}>
-            <Typography align="center" variant="h3" component="h1" gutterBottom>
-              {title}
-            </Typography>
-            <Typography
-              align="center"
-              variant="h5"
-              color="textSecondary"
-              component="h2"
-              gutterBottom
-            >
-              {subtitle}
-            </Typography>
-            <SocialButtons />
-          </CardContent>
-        </Card>
+        <Paper className={classes.paper} elevation={0}>
+          <Typography align="center" variant="h3" component="h1" gutterBottom>
+            {title}
+          </Typography>
+          <Typography align="center" color="textSecondary" variant="h5" component="h2" gutterBottom>
+            {subtitle}
+          </Typography>
+          <SocialButtons />
+        </Paper>
         <Avatar
           alt="Terencio Agozzino"
           variant="square"
