@@ -1,4 +1,4 @@
 export const HEADER = {
-  subtitle: "Master's Student in Computer & Systems Engineering",
+  subtitle: 'Computer & Systems Engineer',
   title: 'Terencio Agozzino',
 };
