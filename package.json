@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@fontsource/cinzel-decorative": "^4.5.8",
-    "@material-ui/core": "^4.12.3",
+    "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "favicons": "^6.2.2",
     "react": "^18.1.0",
@@ -41,8 +41,8 @@
     "@typescript-eslint/parser": "^5.30.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.18.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "favicons-webpack-plugin": "^5.0.2",
     "file-loader": "^6.2.0",
@@ -58,9 +58,9 @@
     "style-loader": "^3.3.1",
     "svg-url-loader": "^7.1.1",
     "ts-loader": "^9.3.0",
-    "typescript": "^4.6.4",
+    "typescript": "^4.7.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.72.1",
+    "webpack": "^5.74.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.3"
   }
