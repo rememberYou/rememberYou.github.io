@@ -30,13 +30,13 @@
     "@material-ui/icons": "^4.11.3",
     "favicons": "^7.0.2",
     "react": "^18.2.0",
-    "react-dom": "^18.1.0",
+    "react-dom": "^18.2.0",
     "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.5",
+    "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "css-loader": "^6.7.1",
