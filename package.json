@@ -46,7 +46,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "favicons-webpack-plugin": "^5.0.2",
     "file-loader": "^6.2.0",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.2",
     "image-webpack-loader": "^8.1.0",
