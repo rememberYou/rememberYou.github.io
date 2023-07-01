@@ -47,7 +47,7 @@
     "favicons-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
     "gh-pages": "^5.0.0",
-    "html-webpack-plugin": "^5.5.0",
+    "html-webpack-plugin": "^5.5.3",
     "husky": "^8.0.3",
     "image-webpack-loader": "^8.1.0",
     "node-sass": "^9.0.0",
