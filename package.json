@@ -29,13 +29,13 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "favicons": "^7.2.0",
-    "react": "^18.3.1",
+    "react": "^19.0.0",
     "react-dom": "^18.3.1",
     "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.7",
-    "@types/react": "^18.3.12",
+    "@types/react": "^19.0.8",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.19.0",
