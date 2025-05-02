@@ -34,7 +34,7 @@
     "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
+    "@babel/core": "^7.27.1",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
@@ -43,7 +43,7 @@
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-prettier": "^5.2.6",
     "favicons-webpack-plugin": "^6.0.1",
     "file-loader": "^6.2.0",
     "gh-pages": "^6.3.0",
@@ -51,8 +51,8 @@
     "husky": "^9.1.7",
     "image-webpack-loader": "^8.1.0",
     "node-sass": "^9.0.0",
-    "prettier": "^3.3.3",
-    "pretty-quick": "^4.1.1",
+    "prettier": "^3.5.3",
+    "pretty-quick": "^4.0.0",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
