@@ -34,7 +34,7 @@
     "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
+    "@babel/core": "^7.28.4",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
