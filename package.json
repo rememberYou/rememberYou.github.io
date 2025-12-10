@@ -34,8 +34,8 @@
     "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@types/react": "^19.2.2",
+    "@babel/core": "^7.28.4",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.38.0",
@@ -51,9 +51,9 @@
     "husky": "^9.1.7",
     "image-webpack-loader": "^8.1.0",
     "node-sass": "^9.0.0",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.3",
     "pretty-quick": "^4.2.2",
-    "sass": "^1.89.2",
+    "sass": "^1.94.2",
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "svg-url-loader": "^8.0.0",
