@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: 'index.js',
     },
-    devtool: isDev ? 'cheap-module-eval-source-map' : 'source-map',
+    devtool: isDev ? 'eval-cheap-module-source-map' : 'source-map',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
     },
@@ -54,72 +54,33 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(png|jpe?g|gif)(\?.*)?$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                esModule: false,
-                hash: 'sha512',
-                limit: 8192,
-                outputPath: isDev ? '' : 'img/',
-                name: isDev ? '[path][name].[ext]' : '[name]-[hash].[ext]',
-              },
-            },
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                disable: true,
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65,
-                },
-                optipng: {
-                  enabled: false,
-                },
-                pngquant: {
-                  quality: [0.65, 0.9],
-                  speed: 4,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                webp: {
-                  quality: 75,
-                },
-              },
-            },
-          ],
+          type: 'asset',
+          parser: { dataUrlCondition: { maxSize: 8192 } },
+          generator: {
+            filename: isDev ? '[path][name][ext]' : 'img/[name]-[contenthash][ext]',
+          },
         },
         {
           test: /\.svg$/,
-          use: [
-            {
-              loader: 'svg-url-loader',
-              options: {
-                hash: 'sha512',
-                outputPath: isDev ? '' : 'img/',
-                name: isDev ? '[path][name].[ext]' : '[name]-[hash].[ext]',
-                limit: 8192,
-              },
-            },
-          ],
+          type: 'asset',
+          parser: { dataUrlCondition: { maxSize: 8192 } },
+          generator: {
+            filename: isDev ? '[path][name][ext]' : 'img/[name]-[contenthash][ext]',
+          },
         },
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-          loader: 'file-loader',
-          options: {
-            hash: 'sha512',
-            outputPath: isDev ? '' : 'fonts/',
-            name: isDev ? '[path][name].[ext]' : '[name]-[hash].[ext]',
+          type: 'asset/resource',
+          generator: {
+            filename: isDev ? '[path][name][ext]' : 'fonts/[name]-[contenthash][ext]',
           },
         },
       ],
     },
     devServer: {
       port: process.env.PORT || 8080,
-      contentBase: path.resolve('dist'),
+      static: path.resolve('dist'),
       historyApiFallback: true,
-      publicPath: '/',
     },
     plugins: [htmlPlugin, faviconWebpack],
   };
