@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare const SocialButtons: () => JSX.Element;
+import * as React from 'react';
+declare const SocialButtons: () => React.JSX.Element;
 export default SocialButtons;

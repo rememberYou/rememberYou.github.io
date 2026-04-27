@@ -1,2 +1,2 @@
-declare const _default: import("@material-ui/core/styles").Theme;
+declare const _default: import("@mui/material/styles").Theme;
 export default _default;
