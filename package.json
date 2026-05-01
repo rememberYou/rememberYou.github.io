@@ -31,7 +31,7 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.7",
     "favicons": "^7.2.0",
-    "react": "^19.2.4",
+    "react": "^19.2.5",
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
