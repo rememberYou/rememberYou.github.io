@@ -74,7 +74,7 @@ test('links only to anchors that exist, and to secure sites', async ({ page }) =
   await expect(page.locator('#contact a[href^="mailto:"]')).toHaveCount(1);
 });
 
-for (const width of [320, 390, 768, 1280]) {
+for (const width of [320, 390, 600, 768, 1280]) {
   test(`fits a ${width}px screen, centred`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
@@ -86,11 +86,51 @@ for (const width of [320, 390, 768, 1280]) {
         const box = wrap.getBoundingClientRect();
         return Math.round(box.left) - Math.round(viewport - box.right);
       });
-      return { viewport, scroll: document.documentElement.scrollWidth, gutters };
+      // Logos differ in height: one row is the logos whose centres are close.
+      const rows: { middle: number; count: number }[] = [];
+      for (const logo of document.querySelectorAll('.logos li')) {
+        const box = logo.getBoundingClientRect();
+        const middle = box.top + box.height / 2;
+        const row = rows.find((row) => Math.abs(row.middle - middle) < 12);
+        if (row) row.count += 1;
+        else rows.push({ middle, count: 1 });
+      }
+      return {
+        viewport,
+        scroll: document.documentElement.scrollWidth,
+        gutters,
+        logosPerRow: rows.map(({ count }) => count),
+      };
     });
     expect(layout.scroll).toBe(layout.viewport);
     // Every block has the same space on its left as on its right.
     expect(new Set(layout.gutters)).toEqual(new Set([0]));
+    // Full rows of logos: none left alone at the end.
+    expect(new Set(layout.logosPerRow).size).toBe(1);
+  });
+}
+
+for (const width of [600, 900]) {
+  test(`centres the stacked hero's text above the photo at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+
+    // The centre of what is drawn, not of the box: a left-aligned line in a
+    // full-width box would pass otherwise.
+    const centres = await page.evaluate(() => {
+      const centre = (el: Element) => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const box = range.getBoundingClientRect();
+        return Math.round(box.left + box.width / 2);
+      };
+      const hero = ['h1', '.role', '.pitch', '.actions', '.photo-wrap'];
+      return hero.map((selector) => centre(document.querySelector(`#top ${selector}`)!));
+    });
+    const photo = centres.at(-1)!;
+    for (const centre of centres) {
+      expect(Math.abs(centre - photo)).toBeLessThanOrEqual(2);
+    }
   });
 }
 
