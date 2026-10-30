@@ -1,13 +1,13 @@
-# Monthly, grouped: one pull request per ecosystem rather than one per package.
-# A release is only proposed once it is 14 days old: long enough for a broken
-# release to be caught and fixed upstream before it reaches this site.
+# Dependencies update themselves. Each week Dependabot opens one grouped pull
+# request per ecosystem, against master, with releases at least 14 days old;
+# dependabot-merge.yml merges it and deploys once CI, Lighthouse included,
+# has passed. A pull request that fails CI stays open, and nothing ships.
 version: 2
 updates:
   - package-ecosystem: npm
     directory: /
-    target-branch: develop
     schedule:
-      interval: monthly
+      interval: weekly
     cooldown:
       default-days: 14
     groups:
@@ -21,9 +21,8 @@ updates:
 
   - package-ecosystem: github-actions
     directory: /
-    target-branch: develop
     schedule:
-      interval: monthly
+      interval: weekly
     cooldown:
       default-days: 14
     groups:

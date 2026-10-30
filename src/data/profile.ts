@@ -19,6 +19,7 @@ import cronos from '../assets/logos/cronos.svg';
 import deloitte from '../assets/logos/deloitte.svg';
 import envalior from '../assets/logos/envalior.png';
 import imec from '../assets/logos/imec.svg';
+import partenamut from '../assets/logos/partenamut.svg';
 
 export const person = {
   firstName: 'Terencio',
@@ -43,10 +44,11 @@ export interface Logo {
 }
 
 export const companies: Logo[] = [
+  { name: 'Partenamut', src: partenamut, height: 32 },
+  { name: 'CBTW', src: cbtw, height: 22 },
   { name: 'Deloitte', src: deloitte, height: 24 },
   { name: 'Envalior', src: envalior, height: 30 },
   { name: 'imec', src: imec, height: 24 },
-  { name: 'CBTW', src: cbtw, height: 22 },
   { name: 'Cronos', src: cronos, height: 42 },
 ];
 
@@ -75,9 +77,9 @@ export const expertise: { icon: Icon; title: string; summary: string; points: st
     title: 'DevOps & automation',
     summary: 'Infrastructure as code and pipelines, so every change is reviewed and repeatable.',
     points: [
-      'AWS CDK and CloudFormation, CI/CD pipelines',
+      'A CI/CD pipeline factory on AWS CDK, shared by several teams',
       'Manufacturing plants migrated to AWS IoT Greengrass V2',
-      'Docker and GNU/Linux at the edge',
+      'Infrastructure scanning and tests that gate every release',
     ],
   },
   {
@@ -85,14 +87,34 @@ export const expertise: { icon: Icon; title: string; summary: string; points: st
     title: 'Data & AI',
     summary: 'Data platforms that turn raw sources into decisions.',
     points: [
-      'AWS Glue lake layers for SAP data, Athena',
-      'Microsoft Fabric for logistics clients',
+      'Document processing with Amazon Textract and Bedrock',
+      'AWS Glue lake layers for SAP data, and Redshift ingestion',
       'LLM document summarisation on Azure AI Foundry',
     ],
   },
 ];
 
-export const experience = [
+export interface Job {
+  period: string;
+  place: string;
+  role: string;
+  company: string;
+  summary: string;
+  stack: string[];
+  current?: boolean;
+}
+
+export const experience: Job[] = [
+  {
+    period: 'Apr 2026 – Present',
+    place: 'Brussels, Belgium · Hybrid',
+    role: 'Solutions Architect',
+    company: 'CBTW, for Partenamut',
+    summary:
+      'Cloud architectures on AWS and Azure, and RFPs. For Partenamut: a multi-account CI/CD pipeline factory, a central monitoring platform, intelligent document processing, and data ingestion into Redshift.',
+    stack: ['AWS CDK', 'CodePipeline', 'Step Functions', 'Bedrock'],
+    current: true,
+  },
   {
     period: 'Dec 2025 – Feb 2026',
     place: 'Zaventem, Belgium',
@@ -218,11 +240,11 @@ export const highlights = [
     text: 'Open-source library for knowledge-graph embeddings, on GitHub.',
   },
   {
-    title: 'Master in Computer & Systems Engineering',
-    text: 'Haute École en Hainaut, Mons · 2021',
+    title: 'GNU Emacs configuration · ★ 485',
+    text: 'My literate Org configuration, shared with the Emacs community.',
   },
   {
-    title: 'Cyber Security Challenge Belgium',
-    text: 'Honorable mentions in 2020 and 2021; WIRE.HACK 2020.',
+    title: 'Master in Computer & Systems Engineering',
+    text: 'Haute École en Hainaut, Mons · 2021',
   },
 ];

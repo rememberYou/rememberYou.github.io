@@ -42,6 +42,7 @@ import Arrow from './icons/Arrow.astro';
       formats={['avif', 'webp']}
       widths={[320, 420, 640, 800]}
       fallbackFormat="jpg"
+      quality={90}
       sizes="(max-width: 920px) 320px, 420px"
       loading="eager"
       fetchpriority="high"
@@ -129,15 +130,21 @@ import Arrow from './icons/Arrow.astro';
     position: relative;
     justify-self: end;
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
   }
 
+  /* A soft glow of the accent colour behind the portrait. */
   .photo-wrap::before {
     content: '';
     position: absolute;
-    inset: 22px -22px -22px 22px;
-    border-radius: 28px;
-    border: 1.5px solid var(--gold);
+    inset: 8% -6% -10%;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--primary) 24%, transparent),
+      transparent
+    );
+    filter: blur(24px);
   }
 
   .photo-wrap :global(.photo) {
@@ -145,8 +152,12 @@ import Arrow from './icons/Arrow.astro';
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: 24px;
-    box-shadow: 0 40px 70px -40px rgb(20 14 8 / 0.6);
+    border-radius: 32px;
+    outline: 1px solid rgb(255 255 255 / 0.12);
+    outline-offset: -1px;
+    box-shadow:
+      0 2px 6px rgb(20 14 8 / 0.08),
+      0 30px 60px -30px rgb(20 14 8 / 0.45);
   }
 
   @media (max-width: 920px) {

@@ -9,11 +9,12 @@ import { experience } from '../data/profile';
       <h2 id="experience-title">Where I've made an impact.</h2>
     </div>
     <ol class="timeline">
-      {experience.map(({ period, place, role, company, summary, stack }) => (
-        <li class="job reveal">
+      {experience.map(({ period, place, role, company, summary, stack, current }) => (
+        <li class:list={['job', 'reveal', { current }]}>
           <p class="when">
+            {current && <span class="now">Current</span>}
             {period}
-            <span>{place}</span>
+            <span class="place">{place}</span>
           </p>
           <div>
             <h3>
@@ -63,13 +64,31 @@ import { experience } from '../data/profile';
     border: 2px solid var(--primary);
   }
 
+  .job.current::before {
+    background: var(--primary);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 22%, transparent);
+  }
+
+  .now {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--on-primary);
+    background: var(--primary);
+  }
+
   .when {
     font-size: 14px;
     font-weight: 500;
     color: var(--soft);
   }
 
-  .when span {
+  .place {
     display: block;
     margin-top: 2px;
     font-size: 13px;
