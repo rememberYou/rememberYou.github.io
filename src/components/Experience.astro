@@ -7,26 +7,43 @@ import { experience } from '../data/profile';
     <div class="reveal">
       <p class="kicker">Experience</p>
       <h2 id="experience-title">Where I've made an impact.</h2>
+      <p class="lede">By employer, with the clients I worked for as a consultant.</p>
     </div>
     <ol class="timeline">
-      {experience.map(({ period, place, role, company, summary, stack, current }) => (
-        <li class:list={['job', 'reveal', { current }]}>
-          <p class="when">
-            {current && <span class="now">Current</span>}
-            {period}
-            <span class="place">{place}</span>
-          </p>
-          <div>
+      {experience.map(({ name, period, summary, current, missions }) => (
+        <li class:list={['employer', 'reveal', { current }]}>
+          <div class="head">
             <h3>
-              {role} <small>· {company}</small>
+              {name}
+              {current && <span class="now">Current</span>}
             </h3>
-            <p class="summary">{summary}</p>
-            <ul class="stack" aria-label="Technologies">
-              {stack.map((tech) => (
-                <li>{tech}</li>
-              ))}
-            </ul>
+            <p class="period">{period}</p>
+            {summary && <p class="about">{summary}</p>}
           </div>
+          <ol class="missions">
+            {missions.map((mission) => (
+              <li class="mission">
+                <h4>
+                  {mission.role}
+                  {mission.client && (
+                    <span class="client">
+                      <span class="label">Client</span>
+                      {mission.client}
+                    </span>
+                  )}
+                </h4>
+                <p class="meta">
+                  {missions.length > 1 ? `${mission.period} · ${mission.place}` : mission.place}
+                </p>
+                <p class="summary">{mission.summary}</p>
+                <ul class="stack" aria-label="Technologies">
+                  {mission.stack.map((tech) => (
+                    <li>{tech}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </li>
       ))}
     </ol>
@@ -44,19 +61,19 @@ import { experience } from '../data/profile';
     list-style: none;
   }
 
-  .job {
+  .employer {
     position: relative;
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 32px;
-    padding: 0 0 40px 36px;
+    grid-template-columns: 240px 1fr;
+    gap: 40px;
+    padding: 0 0 48px 36px;
   }
 
-  .job::before {
+  .employer::before {
     content: '';
     position: absolute;
     left: -7px;
-    top: 8px;
+    top: 9px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -64,16 +81,26 @@ import { experience } from '../data/profile';
     border: 2px solid var(--primary);
   }
 
-  .job.current::before {
+  .employer.current::before {
     background: var(--primary);
     box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 22%, transparent);
   }
 
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    line-height: 1.3;
+  }
+
   .now {
-    display: inline-block;
-    margin-right: 8px;
     padding: 1px 8px;
     border-radius: 999px;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.6px;
@@ -82,36 +109,70 @@ import { experience } from '../data/profile';
     background: var(--primary);
   }
 
-  .when {
+  .period {
+    margin-top: 4px;
     font-size: 14px;
     font-weight: 500;
     color: var(--soft);
   }
 
-  .place {
-    display: block;
-    margin-top: 2px;
-    font-size: 13px;
-    font-weight: 400;
+  .about {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--soft);
   }
 
-  h3 {
+  .missions {
+    display: grid;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .mission + .mission {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  h4 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 12px;
     font-family: var(--font-title);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.3px;
     line-height: 1.3;
   }
 
-  small {
+  .client {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
     font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--text);
+  }
+
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  .meta {
+    margin-top: 4px;
+    font-size: 13.5px;
     color: var(--soft);
   }
 
   .summary {
-    margin-top: 6px;
+    margin-top: 8px;
     max-width: 640px;
     font-size: 15.5px;
     line-height: 1.6;
@@ -137,9 +198,9 @@ import { experience } from '../data/profile';
   }
 
   @media (max-width: 920px) {
-    .job {
+    .employer {
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 18px;
       padding-left: 26px;
     }
   }
