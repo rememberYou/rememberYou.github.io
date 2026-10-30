@@ -23,15 +23,8 @@ import { experience } from '../data/profile';
           <ol class="missions">
             {missions.map((mission) => (
               <li class="mission">
-                <h4>
-                  {mission.role}
-                  {mission.client && (
-                    <span class="client">
-                      <span class="label">Client</span>
-                      {mission.client}
-                    </span>
-                  )}
-                </h4>
+                <h4>{mission.client ?? mission.role}</h4>
+                {mission.client && <p class="role">{mission.role}</p>}
                 <p class="meta">
                   {missions.length > 1 ? `${mission.period} · ${mission.place}` : mission.place}
                 </p>
@@ -135,10 +128,6 @@ import { experience } from '../data/profile';
   }
 
   h4 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 6px 12px;
     font-family: var(--font-title);
     font-size: 19px;
     font-weight: 700;
@@ -146,22 +135,10 @@ import { experience } from '../data/profile';
     line-height: 1.3;
   }
 
-  .client {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-    font-family: var(--font-body);
+  .role {
+    margin-top: 2px;
     font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0;
-    color: var(--text);
-  }
-
-  .label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     color: var(--primary);
   }
 
