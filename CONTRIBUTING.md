@@ -50,13 +50,19 @@ checked against every background it sits on.
 
 ## Dependencies
 
-- Every version is exact (`.npmrc` sets `save-exact`), in `package.json` and
-  in workflows (`actions/checkout@v4.2.2`, not `@v4`).
-- Only stable releases at least two weeks old. Dependabot enforces it with a
-  14-day `cooldown`.
-- Dependabot opens one grouped pull request a month for npm and one for
-  GitHub Actions, into `develop`. Merge it when CI is green.
-- Node follows the active LTS (`.nvmrc`).
+Dependencies update themselves; nobody has to accept a pull request.
+
+- Every Monday, Dependabot opens one grouped pull request for npm and one for
+  GitHub Actions, against `master`, with releases at least 14 days old
+  (`cooldown` in `.github/dependabot.yml`).
+- CI runs on it: format, types, build, Lighthouse budgets.
+- If CI passes, `dependabot-merge.yml` merges it, deploys, and merges `master`
+  back into `develop`.
+- If CI fails, the pull request stays open and nothing ships. That is the one
+  case that needs a person: usually a major version that needs a code change.
+- Every version is exact (`.npmrc` sets `save-exact`), in `package.json` and in
+  workflows (`actions/checkout@v7.0.1`, not `@v7`). Node follows the active LTS
+  (`.nvmrc`).
 
 ## Commits
 

@@ -54,5 +54,6 @@ served from this site.
 
 A push to `master` builds the site and publishes it with GitHub Actions
 (`deploy.yml`). Work happens on `develop`; pull requests are checked by `ci.yml`.
+Dependencies update and deploy themselves once CI passes (`dependabot-merge.yml`).
 
 How to change the site, and the standards CI holds it to: [CONTRIBUTING.md](CONTRIBUTING.md).

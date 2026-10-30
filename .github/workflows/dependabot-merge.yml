@@ -1,0 +1,66 @@
+# Merges Dependabot's pull requests once CI has passed on them, deploys, and
+# brings develop up to date. CI (format, types, build, Lighthouse budgets) is
+# the gate: a pull request that fails it is left open for a person.
+#
+# It runs on workflow_run, after CI, and never checks out the pull request's
+# code: it only merges the exact commit CI tested.
+
+name: Dependabot merge
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+    steps:
+      - name: Merge the pull request CI passed on
+        run: |
+          pr=$(gh pr list -R "$REPO" --head "$HEAD_BRANCH" --state open \
+            --json number,author,baseRefName,headRefOid \
+            --jq ".[] | select(.author.login == \"app/dependabot\"
+                             and .baseRefName == \"master\"
+                             and .headRefOid == \"$HEAD_SHA\") | .number")
+          if [ -z "$pr" ]; then
+            echo "No open Dependabot pull request into master at $HEAD_SHA; nothing to do."
+            exit 0
+          fi
+          gh pr merge "$pr" -R "$REPO" --merge --delete-branch --match-head-commit "$HEAD_SHA"
+          echo "MERGED=true" >> "$GITHUB_ENV"
+
+      # A merge made with the workflow token does not trigger other workflows,
+      # so the deployment is started explicitly.
+      - name: Deploy
+        if: env.MERGED == 'true'
+        run: gh workflow run deploy.yml -R "$REPO" --ref master
+
+      - uses: actions/checkout@v7.0.1
+        if: env.MERGED == 'true'
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Bring develop up to date
+        if: env.MERGED == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin master
+          git merge --no-edit origin/master
+          git push origin develop
