@@ -1,0 +1,105 @@
+---
+import { Font, getImage } from 'astro:assets';
+
+import portrait from '../assets/portrait.png';
+import { person } from '../data/profile';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: portrait, width: 800, format: 'jpg' });
+const ogImageUrl = new URL(ogImage.src, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `${person.firstName} ${person.lastName}`,
+  jobTitle: person.role,
+  url: canonical.href,
+  image: ogImageUrl.href,
+  email: `mailto:${person.email}`,
+  address: { '@type': 'PostalAddress', addressCountry: 'BE', addressRegion: person.region },
+  sameAs: [person.linkedin, person.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#f4f0e2" />
+    <script is:inline>
+      // The season from the month, day or evening from the hour, before the
+      // first paint so the page never flashes the wrong colours. The browser's
+      // own bar follows, through theme-color.
+      (() => {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const hour = now.getHours();
+        const season = month === 12 || month <= 3 ? 'winter' : 'autumn';
+        const time = hour >= 7 && hour < 19 ? 'day' : 'evening';
+        const backgrounds = {
+          'autumn-day': '#f4f0e2',
+          'autumn-evening': '#1d1712',
+          'winter-day': '#ece8da',
+          'winter-evening': '#11172a',
+        };
+        const root = document.documentElement;
+        root.dataset.season = season;
+        root.dataset.time = time;
+        root.classList.add('js');
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', backgrounds[`${season}-${time}`]);
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content={String(ogImage.attributes.width)} />
+    <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+    <meta property="profile:first_name" content={person.firstName} />
+    <meta property="profile:last_name" content={person.lastName} />
+    <meta name="twitter:card" content="summary" />
+
+    <Font cssVariable="--font-name" preload />
+    <Font cssVariable="--font-title" preload />
+    <Font cssVariable="--font-body" preload />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Reveal each block once, as it enters the viewport.
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

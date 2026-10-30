@@ -1,0 +1,128 @@
+---
+import { expertise } from '../data/profile';
+import Icon from './icons/Expertise.astro';
+---
+
+<section id="expertise" aria-labelledby="expertise-title">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Core expertise</p>
+      <h2 id="expertise-title">From the first diagram to production.</h2>
+      <p class="lede">What I bring to a team, and what I have delivered with it.</p>
+    </div>
+    <div class="cards">
+      {expertise.map(({ icon, title, summary, points }) => (
+        <article class="card reveal">
+          <div class="icon">
+            <Icon name={icon} />
+          </div>
+          <h3>{title}</h3>
+          <p>{summary}</p>
+          <ul>
+            {points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 56px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 34px 30px;
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 50px -36px rgb(20 14 8 / 0.5);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  .icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card:nth-child(1) .icon {
+    background: var(--tint-1);
+    color: var(--primary);
+  }
+
+  .card:nth-child(2) .icon {
+    background: var(--tint-2);
+    color: var(--accent);
+  }
+
+  .card:nth-child(3) .icon {
+    background: var(--tint-3);
+    color: var(--soft);
+  }
+
+  h3 {
+    margin-top: 22px;
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+  }
+
+  p {
+    margin-top: 10px;
+    color: var(--soft);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  ul {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  @media (max-width: 920px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

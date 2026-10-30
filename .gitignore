@@ -1,5 +1,10 @@
+# Build output and caches
+dist/
+.astro/
+node_modules/
+
+# Logs and editors
 *.log
-.cache
-dist
-node_modules
+.DS_Store
 .tern-port
+.lighthouseci/
