@@ -33,14 +33,18 @@ const links = [
   window.addEventListener('scroll', update, { passive: true });
   update();
 
-  // The name appears in the navigation only once the large one in the hero
-  // has scrolled out of view, so it is never shown twice.
-  const title = document.querySelector('#top h1');
-  if (nav && title) {
-    new IntersectionObserver(([entry]) => nav.classList.toggle('named', !entry.isIntersecting), {
+  // The name and the "Get in touch" button appear in the navigation only once
+  // their counterparts in the hero have scrolled out of view, so neither is
+  // ever shown twice.
+  const reveal = (selector: string, state: string) => {
+    const target = document.querySelector(selector);
+    if (!nav || !target) return;
+    new IntersectionObserver(([entry]) => nav.classList.toggle(state, !entry.isIntersecting), {
       rootMargin: '-72px 0px 0px 0px',
-    }).observe(title);
-  }
+    }).observe(target);
+  };
+  reveal('#top h1', 'named');
+  reveal('#top .actions', 'cta');
 </script>
 
 <style>
@@ -77,8 +81,9 @@ const links = [
       visibility 0s;
   }
 
-  /* Hidden while the hero's name is on screen. Without JavaScript it stays. */
-  :global(.js) nav:not(.named) .logo {
+  /* Hidden while their counterpart in the hero is on screen. Without JavaScript they stay. */
+  :global(.js) nav:not(.named) .logo,
+  :global(.js) nav:not(.cta) .small {
     opacity: 0;
     transform: translateY(6px);
     visibility: hidden;
@@ -86,14 +91,6 @@ const links = [
       opacity 0.35s ease,
       transform 0.35s ease,
       visibility 0s 0.35s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .logo,
-    :global(.js) nav:not(.named) .logo {
-      transform: none;
-      transition: none;
-    }
   }
 
   .menu {
@@ -112,6 +109,11 @@ const links = [
   .small {
     padding: 9px 16px;
     font-size: 14px;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      visibility 0s,
+      background 0.25s;
   }
 
   @media (max-width: 920px) {
@@ -130,6 +132,15 @@ const links = [
     .small {
       padding: 8px 14px;
       font-size: 13px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo,
+    .small,
+    :global(.js) nav:not(.named) .logo,
+    :global(.js) nav:not(.cta) .small {
+      transform: none;
+      transition: none;
     }
   }
 </style>

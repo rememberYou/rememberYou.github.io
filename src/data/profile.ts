@@ -64,7 +64,7 @@ export const companies: Logo[] = [
 ];
 
 export const figures = [
-  { value: '5+', label: 'Years of experience in cloud, data & software' },
+  { value: '15+', label: 'Years of coding, 5+ of them in professional cloud & data roles' },
   { value: '11', label: 'AWS, Azure & Scrum certifications' },
   { value: '2', label: 'Peer-reviewed publications (Springer)' },
   { value: '4', label: 'Languages: French, English, Dutch, Italian' },
