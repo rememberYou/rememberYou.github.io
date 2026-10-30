@@ -16,6 +16,10 @@ export default defineConfig({
       name: 'Cinzel Decorative',
       cssVariable: '--font-name',
       fallbacks: ['serif'],
+      // The name is a logotype: drawn in a substitute font it reads as another
+      // word (Cinzel has only capitals). It waits for its font, preloaded and
+      // a few kilobytes, instead of swapping; the body text still swaps.
+      display: 'block',
       options: {
         variants: [
           {
