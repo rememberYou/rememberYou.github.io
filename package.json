@@ -17,7 +17,6 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lighthouse": "lhci autorun",
     "test": "playwright test"
   },
   "dependencies": {
@@ -29,8 +28,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "@lhci/cli": "0.15.1",
     "@playwright/test": "1.64.1",
+    "lighthouse": "13.5.0",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.1",
     "typescript": "6.0.3"

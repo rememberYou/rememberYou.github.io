@@ -7,6 +7,5 @@ node_modules/
 *.log
 .DS_Store
 .tern-port
-.lighthouseci/
 test-results/
 playwright-report/

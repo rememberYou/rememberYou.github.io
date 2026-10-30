@@ -2,6 +2,5 @@ dist
 .astro
 node_modules
 package-lock.json
-.lighthouseci
 test-results
 playwright-report
