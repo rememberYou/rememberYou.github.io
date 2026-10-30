@@ -19,7 +19,8 @@ and hold no text of their own, except section headings.
    theme follows the clock, so change the hour, or set `data-season` and
    `data-time` on `<html>` in the browser's inspector.
 3. Before pushing: `npm run format`, then `npm run build && npm test`.
-   The first time, `npx playwright install chromium` downloads the test browser.
+   The first time, `npx playwright install chromium webkit` downloads the test
+   browsers: Chrome, and Safari's engine.
 4. Open a pull request into `develop`. CI runs the same checks; it must pass.
 5. To publish, merge `develop` into `master`. `deploy.yml` builds and deploys.
 
@@ -29,7 +30,7 @@ and hold no text of their own, except section headings.
 | ---------------------------------- | ------------------------------- | -------------------------- |
 | Formatting                         | Prettier, no diff               | `npm run format`           |
 | Types                              | `astro check`, strict, 0 errors | `npm run build`            |
-| Browser tests                      | All pass                        | `tests/`                   |
+| Browser tests (Chrome, Safari)     | All pass                        | `tests/`                   |
 | Lighthouse performance             | ≥ 95                            | `tests/lighthouse.spec.ts` |
 | Accessibility, best practices, SEO | 100                             | `tests/lighthouse.spec.ts` |
 | Layout shift (CLS)                 | ≤ 0.01                          | `tests/lighthouse.spec.ts` |
