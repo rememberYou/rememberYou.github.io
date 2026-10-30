@@ -16,14 +16,21 @@ export default defineConfig({
     timezoneId: 'Europe/Brussels',
     locale: 'en-GB',
   },
+  // Every test in Chrome and in Safari's engine, which draws some things its
+  // own way: it once cropped the name's T while it faded in.
   projects: [
     {
-      name: 'site',
+      name: 'chrome',
       testIgnore: 'lighthouse.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'safari',
+      testIgnore: 'lighthouse.spec.ts',
+      use: { ...devices['Desktop Safari'] },
+    },
     // Last, alone: performance is not measured while other tests run.
-    { name: 'lighthouse', testMatch: 'lighthouse.spec.ts', dependencies: ['site'] },
+    { name: 'lighthouse', testMatch: 'lighthouse.spec.ts', dependencies: ['chrome', 'safari'] },
   ],
   webServer: {
     command: `npm run preview -- --port ${port} --ignore-lock`,

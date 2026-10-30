@@ -49,5 +49,5 @@ jobs:
       # practices and SEO at 100, no layout shift, a page under 250 KB.
       - name: Browser tests and Lighthouse
         run: |
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
           npm test
