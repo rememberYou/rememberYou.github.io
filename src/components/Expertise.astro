@@ -8,7 +8,10 @@ import Icon from './icons/Expertise.astro';
     <div class="reveal">
       <p class="kicker">Core expertise</p>
       <h2 id="expertise-title">From the first diagram to production.</h2>
-      <p class="lede">What I bring to a team, and what I have delivered with it.</p>
+      <p class="lede">
+        I start from the business problem, design the platform that answers it, and stay until it
+        runs.
+      </p>
     </div>
     <div class="cards">
       {expertise.map(({ icon, title, summary, points }) => (
@@ -32,7 +35,7 @@ import Icon from './icons/Expertise.astro';
 <style>
   .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 56px;
   }
@@ -78,6 +81,11 @@ import Icon from './icons/Expertise.astro';
   .card:nth-child(3) .icon {
     background: var(--tint-3);
     color: var(--soft);
+  }
+
+  .card:nth-child(4) .icon {
+    background: var(--tint-1);
+    color: var(--primary-hover);
   }
 
   h3 {

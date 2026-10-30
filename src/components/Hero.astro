@@ -4,6 +4,7 @@ import { Picture } from 'astro:assets';
 import portrait from '../assets/portrait.png';
 import { person } from '../data/profile';
 import Arrow from './icons/Arrow.astro';
+import Download from './icons/Download.astro';
 ---
 
 <header class="wrap hero" id="top">
@@ -29,8 +30,8 @@ import Arrow from './icons/Arrow.astro';
       <a class="btn primary" href="#contact">
         Get in touch <Arrow />
       </a>
-      <a class="btn outline" href="#experience">
-        View experience
+      <a class="btn outline" href={person.cv} download="Terencio-Agozzino-CV.pdf">
+        Download CV <Download />
       </a>
     </div>
   </div>

@@ -34,6 +34,8 @@ export const person = {
   linkedin: 'https://www.linkedin.com/in/terencioagozzino/',
   github: 'https://github.com/rememberYou',
   credly: 'https://www.credly.com/users/terencio-agozzino/badges',
+  /** Served from public/; replace the file there to update it. */
+  cv: '/terencio-agozzino-cv.pdf',
 } as const;
 
 /**
@@ -68,37 +70,47 @@ export const figures = [
   { value: '4', label: 'Languages: French, English, Dutch, Italian' },
 ];
 
-export type Icon = 'cloud' | 'terminal' | 'chart';
+export type Icon = 'compass' | 'shield' | 'chart' | 'people';
 
 export const expertise: { icon: Icon; title: string; summary: string; points: string[] }[] = [
   {
-    icon: 'cloud',
-    title: 'Cloud architecture & security',
-    summary: 'Secure foundations on AWS and Azure that teams can build on.',
+    icon: 'compass',
+    title: 'Business-driven architecture',
+    summary: 'From a business need to an architecture a client can decide on.',
     points: [
-      'Terraform modules and starter kits for EKS and serverless',
-      'Security reviews and guardrails across projects',
-      'Migration to a new AWS landing zone',
+      'RFPs and client proposals on AWS and Azure',
+      'Requirements turned into technical specifications',
+      'Trade-offs made explicit: cost, risk, time to market',
     ],
   },
   {
-    icon: 'terminal',
-    title: 'DevOps & automation',
-    summary: 'Infrastructure as code and pipelines, so every change is reviewed and repeatable.',
+    icon: 'shield',
+    title: 'Secure cloud foundations',
+    summary: 'Platforms that are secure by default, and that teams want to use.',
     points: [
-      'A CI/CD pipeline factory on AWS CDK, shared by several teams',
-      'Manufacturing plants migrated to AWS IoT Greengrass V2',
-      'Infrastructure scanning and tests that gate every release',
+      'Landing zones, guardrails and security reviews',
+      'One CI/CD platform shared by several teams',
+      'Terraform starter kits for EKS and serverless',
     ],
   },
   {
     icon: 'chart',
-    title: 'Data & AI',
-    summary: 'Data platforms that turn raw sources into decisions.',
+    title: 'Data & AI for the business',
+    summary: 'From raw sources to decisions, and fewer manual tasks.',
     points: [
       'Document processing with Amazon Textract and Bedrock',
-      'AWS Glue lake layers for SAP data, and Redshift ingestion',
-      'LLM document summarisation on Azure AI Foundry',
+      'SAP data on AWS for reporting and finance teams',
+      'Microsoft Fabric platforms for logistics clients',
+    ],
+  },
+  {
+    icon: 'people',
+    title: 'Bringing people together',
+    summary: 'Clients, engineers and operations working from the same plan.',
+    points: [
+      'Certified Scrum Master; led a student development team',
+      'Contributor to the AWS Guild at Envalior',
+      'Handovers and documentation that let teams run on their own',
     ],
   },
 ];
