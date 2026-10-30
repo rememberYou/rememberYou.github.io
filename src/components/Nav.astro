@@ -26,11 +26,21 @@ const links = [
 </nav>
 
 <script>
-  // A hairline under the navigation once the page has scrolled.
   const nav = document.getElementById('nav');
+
+  // A hairline under the navigation once the page has scrolled.
   const update = () => nav?.classList.toggle('scrolled', window.scrollY > 8);
   window.addEventListener('scroll', update, { passive: true });
   update();
+
+  // The name appears in the navigation only once the large one in the hero
+  // has scrolled out of view, so it is never shown twice.
+  const title = document.querySelector('#top h1');
+  if (nav && title) {
+    new IntersectionObserver(([entry]) => nav.classList.toggle('named', !entry.isIntersecting), {
+      rootMargin: '-72px 0px 0px 0px',
+    }).observe(title);
+  }
 </script>
 
 <style>
@@ -61,6 +71,29 @@ const links = [
     font-size: 19px;
     letter-spacing: 0.5px;
     white-space: nowrap;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      visibility 0s;
+  }
+
+  /* Hidden while the hero's name is on screen. Without JavaScript it stays. */
+  :global(.js) nav:not(.named) .logo {
+    opacity: 0;
+    transform: translateY(6px);
+    visibility: hidden;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      visibility 0s 0.35s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo,
+    :global(.js) nav:not(.named) .logo {
+      transform: none;
+      transition: none;
+    }
   }
 
   .menu {
