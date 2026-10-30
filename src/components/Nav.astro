@@ -134,6 +134,20 @@ const links = [
       font-size: 13px;
     }
   }
+
+  /* The smallest phones: the name and the button must still fit side by side. */
+  @media (max-width: 380px) {
+    .logo {
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .small {
+      padding: 7px 12px;
+      font-size: 12.5px;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .logo,
     .small,
