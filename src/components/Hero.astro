@@ -64,6 +64,11 @@ import Download from './icons/Download.astro';
     font-size: 80px;
     line-height: 1.04;
     letter-spacing: 1px;
+    /* Cinzel's T curls 0.09em left of its box. Safari crops it to the box
+       while the heading fades in, so the box reaches over the curl, and the
+       text stays where it was. */
+    padding-left: 0.1em;
+    margin-left: -0.1em;
   }
 
   .role {
