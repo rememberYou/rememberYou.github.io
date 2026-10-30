@@ -70,4 +70,40 @@ import { figures } from '../data/profile';
       font-size: 34px;
     }
   }
+
+  /* Phones: one figure per row, the number beside its label. */
+  @media (max-width: 560px) {
+    .figures {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-block: 24px;
+    }
+
+    .figure,
+    .figure:first-child,
+    .figure:nth-child(3) {
+      flex-direction: row-reverse;
+      justify-content: start;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+      border-left: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .figure:first-child {
+      border-top: 0;
+    }
+
+    dd {
+      flex: none;
+      width: 88px;
+      font-size: 32px;
+    }
+
+    dt {
+      margin-top: 0;
+      max-width: none;
+    }
+  }
 </style>

@@ -128,4 +128,18 @@ const links = [
       text-align: center;
     }
   }
+
+  /* Phones: one button per row, all the same width. */
+  @media (max-width: 480px) {
+    .links {
+      flex-direction: column;
+      max-width: 320px;
+      margin-inline: auto;
+    }
+
+    .links a {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 </style>

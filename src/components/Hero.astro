@@ -146,4 +146,12 @@ import Download from './icons/Download.astro';
       max-width: 320px;
     }
   }
+
+  /* Phones: the two buttons share the row, or stack at full width. */
+  @media (max-width: 480px) {
+    .actions .btn {
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+  }
 </style>
