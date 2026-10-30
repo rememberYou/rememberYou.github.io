@@ -109,14 +109,15 @@ import { certifications, person } from '../data/profile';
 
   .badges {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* Each tier fills its row, whatever the number of badges. */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 14px;
     margin-top: 14px;
     list-style: none;
   }
 
   .badges.pro {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
