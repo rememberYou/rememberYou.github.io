@@ -35,6 +35,17 @@ test('renders every section without errors', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test('never draws the name in a substitute font', async ({ page }) => {
+  await page.goto('/');
+  // block: the name waits for Cinzel, preloaded, rather than showing in Times.
+  const display = await page.evaluate(() =>
+    [...document.fonts]
+      .filter(({ family }) => family.includes('Cinzel') && !family.includes('fallback'))
+      .map((font) => font.display),
+  );
+  expect(display).toEqual(['block']);
+});
+
 test('loads every image', async ({ page }) => {
   await page.goto('/');
   await scrollThrough(page);
