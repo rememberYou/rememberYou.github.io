@@ -1,0 +1,139 @@
+---
+import { highlights, person, publications } from '../data/profile';
+
+const me = `${person.firstName[0]}. ${person.lastName}`;
+---
+
+<section id="research" aria-labelledby="research-title">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Research &amp; recognition</p>
+      <h2 id="research-title">Published, and open source.</h2>
+      <p class="lede">
+        From my Master's thesis at IDLab – imec: two peer-reviewed papers and a library used by the
+        research community.
+      </p>
+    </div>
+    <div class="papers">
+      {publications.map(({ venue, title, authors, url }) => (
+        <a class="paper reveal" href={url} rel="noopener">
+          <span class="venue">{venue}</span>
+          <h3>{title}</h3>
+          <p>
+            {authors.map((author, i) => (
+              <>
+                {author === me ? <b>{author}</b> : author}
+                {i < authors.length - 2 ? ', ' : i === authors.length - 2 ? ' & ' : ''}
+              </>
+            ))}
+          </p>
+          <span class="more">Read the paper →</span>
+        </a>
+      ))}
+    </div>
+    <ul class="highlights">
+      {highlights.map(({ title, text }) => (
+        <li class="reveal">
+          <b>{title}</b>
+          <span>{text}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .papers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .paper {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
+    transition:
+      border-color 0.3s,
+      transform 0.3s;
+  }
+
+  .paper:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+  }
+
+  .venue {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h3 {
+    margin-top: 10px;
+    font-family: var(--font-title);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.35;
+  }
+
+  .paper p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--soft);
+  }
+
+  .paper p b {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .more {
+    margin-top: auto;
+    padding-top: 18px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary);
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    list-style: none;
+  }
+
+  .highlights li {
+    border-top: 1.5px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .highlights b {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 16px;
+  }
+
+  .highlights span {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--soft);
+  }
+
+  @media (max-width: 920px) {
+    .papers,
+    .highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

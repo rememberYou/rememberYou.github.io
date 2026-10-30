@@ -1,0 +1,126 @@
+---
+import { person } from '../data/profile';
+import Brand from './icons/Brand.astro';
+
+const links = [
+  { name: 'linkedin', label: 'LinkedIn', href: person.linkedin },
+  { name: 'github', label: 'GitHub', href: person.github },
+  { name: 'email', label: 'Email', href: `mailto:${person.email}` },
+] as const;
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <p class="kicker reveal">Contact</p>
+    <h2 id="contact-title" class="reveal">
+      Let's build something great.
+    </h2>
+    <p class="lede reveal">
+      A platform to design, a migration to plan, or a pipeline to automate? Let's talk.
+    </p>
+    <ul class="links reveal">
+      {links.map(({ name, label, href }) => (
+        <li>
+          <a href={href} rel="noopener">
+            <Brand name={name} />
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="sig">
+      {person.firstName} {person.lastName}
+    </span>
+    <span>
+      © {new Date().getFullYear()} · {person.country}
+    </span>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    background: var(--closing);
+    color: #ece8da;
+    text-align: center;
+  }
+
+  .kicker {
+    color: var(--gold);
+  }
+
+  h2 {
+    font-size: 60px;
+    letter-spacing: -2px;
+  }
+
+  .lede {
+    margin-inline: auto;
+    color: var(--closing-soft);
+  }
+
+  .links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+    list-style: none;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 26px;
+    border-radius: 12px;
+    font-weight: 600;
+    background: #ece8da;
+    color: #282019;
+    transition: transform 0.25s;
+  }
+
+  .links a:hover {
+    transform: translateY(-3px);
+  }
+
+  .links :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  footer {
+    background: var(--closing);
+    color: var(--closing-soft);
+    font-size: 13px;
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-block: 22px;
+  }
+
+  .sig {
+    font-family: var(--font-name);
+    color: #ece8da;
+  }
+
+  @media (max-width: 920px) {
+    h2 {
+      font-size: 38px;
+    }
+
+    footer .wrap {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

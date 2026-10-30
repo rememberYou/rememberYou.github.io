@@ -1,0 +1,177 @@
+---
+import { Picture } from 'astro:assets';
+
+import portrait from '../assets/portrait.png';
+import { person } from '../data/profile';
+import Arrow from './icons/Arrow.astro';
+---
+
+<header class="wrap hero" id="top">
+  <div>
+    <p class="tag reveal">
+      <span class="flag" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+      {person.country}
+    </p>
+    <h1 class="reveal">
+      {person.firstName}
+      <br />
+      {person.lastName}
+    </h1>
+    <p class="role reveal">
+      {person.role} <span aria-hidden="true">|</span> {person.credentials}
+    </p>
+    <p class="pitch reveal">{person.pitch}</p>
+    <div class="actions reveal">
+      <a class="btn primary" href="#contact">
+        Get in touch <Arrow />
+      </a>
+      <a class="btn outline" href="#experience">
+        View experience
+      </a>
+    </div>
+  </div>
+  <div class="photo-wrap reveal">
+    <Picture
+      class="photo"
+      src={portrait}
+      alt={`${person.firstName} ${person.lastName}`}
+      formats={['avif', 'webp']}
+      widths={[320, 420, 640, 800]}
+      fallbackFormat="jpg"
+      sizes="(max-width: 920px) 320px, 420px"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</header>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 64px;
+    align-items: center;
+    padding-top: 72px;
+    padding-bottom: 96px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  .flag {
+    display: inline-grid;
+    grid-template-columns: repeat(3, 4px);
+    height: 12px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .flag i:nth-child(1) {
+    background: #282019;
+  }
+
+  .flag i:nth-child(2) {
+    background: #f2c94c;
+  }
+
+  .flag i:nth-child(3) {
+    background: #c0392b;
+  }
+
+  h1 {
+    margin-top: 18px;
+    font-family: var(--font-name);
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 1.04;
+    letter-spacing: 1px;
+  }
+
+  .role {
+    margin-top: 22px;
+    font-family: var(--font-title);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+
+  .role span {
+    color: var(--primary);
+  }
+
+  .pitch {
+    margin-top: 14px;
+    max-width: 540px;
+    font-size: 18px;
+    color: var(--soft);
+  }
+
+  .actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+
+  .photo-wrap {
+    position: relative;
+    justify-self: end;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 22px -22px -22px 22px;
+    border-radius: 28px;
+    border: 1.5px solid var(--gold);
+  }
+
+  .photo-wrap :global(.photo) {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 40px 70px -40px rgb(20 14 8 / 0.6);
+  }
+
+  @media (max-width: 920px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding-top: 40px;
+      padding-bottom: 72px;
+    }
+
+    h1 {
+      font-size: 46px;
+    }
+
+    .role {
+      font-size: 19px;
+    }
+
+    .pitch {
+      font-size: 16px;
+    }
+
+    .photo-wrap {
+      justify-self: center;
+      max-width: 320px;
+    }
+  }
+</style>

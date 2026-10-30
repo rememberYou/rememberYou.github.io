@@ -1,0 +1,40 @@
+# Checks a pull request before it is merged: formatting, types, a full build,
+# and Lighthouse against the budgets in lighthouserc.json. It deploys nothing.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, master]
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Format, types, build, Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Format
+        run: npm run format:check
+
+      - name: Types and build
+        run: npm run build
+
+      # Fails if performance, accessibility, best practices or SEO drop below
+      # their budgets, or if the page grows past 250 KB.
+      - name: Lighthouse
+        run: npm run lighthouse
