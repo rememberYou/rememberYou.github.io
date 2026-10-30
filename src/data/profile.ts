@@ -108,7 +108,7 @@ export const expertise: { icon: Icon; title: string; summary: string; points: st
     title: 'Bringing people together',
     summary: 'Clients, engineers and operations working from the same plan.',
     points: [
-      'Certified Scrum Master; led a student development team',
+      'Tech lead of a Data Engineering squad; certified Scrum Master',
       'Contributor to the AWS Guild at Envalior',
       'Handovers and documentation that let teams run on their own',
     ],
