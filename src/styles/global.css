@@ -1,0 +1,263 @@
+/*
+ * Design tokens and base styles. Four themes from the autumn / winter palette;
+ * the inline script in Base.astro picks one from the month and the hour, before
+ * the first paint.
+ */
+
+:root,
+[data-season='autumn'][data-time='day'] {
+  --bg: #f4f0e2;
+  --surface: #ffffff;
+  --text: #282019;
+  --soft: #585042;
+  --border: #e6ded1;
+  /* Terracotta, deepened from #bf7257 to reach 4.5:1 on white and on cream. */
+  --primary: #a3583e;
+  --primary-hover: #8a4a34;
+  --on-primary: #ffffff;
+  --accent: #6e7b50;
+  --gold: #bb9c71;
+  --deep: #1e2a48;
+  --deep-text: #ece8da;
+  --deep-soft: #b8b6c4;
+  --closing: #24392b;
+  --closing-soft: #c4cbbf;
+  --logo-filter: grayscale(1) brightness(0.2) sepia(0.2);
+  --tint-1: #f6e3da;
+  --tint-2: #e5e9dc;
+  --tint-3: #e0e3ec;
+  color-scheme: light;
+}
+
+[data-season='autumn'][data-time='evening'] {
+  --bg: #1d1712;
+  --surface: #29211a;
+  --text: #f4f0e2;
+  --soft: #c9bda5;
+  --border: rgb(244 240 226 / 0.1);
+  --primary: #d08466;
+  --primary-hover: #e09679;
+  --on-primary: #1d1712;
+  --accent: #a3ad82;
+  --gold: #c8a978;
+  --deep: #141a2c;
+  --deep-text: #ece8da;
+  --deep-soft: #a9a7b6;
+  --closing: #1c2b20;
+  --closing-soft: #b3bcae;
+  --logo-filter: grayscale(1) brightness(0) invert(0.92) sepia(0.15);
+  --tint-1: #3a271e;
+  --tint-2: #2b3022;
+  --tint-3: #23283a;
+  color-scheme: dark;
+}
+
+[data-season='winter'][data-time='day'] {
+  --bg: #ece8da;
+  --surface: #f8f6ef;
+  --text: #282019;
+  --soft: #585042;
+  --border: #dcd6c6;
+  --primary: #643c58;
+  --primary-hover: #4f2f45;
+  --on-primary: #ffffff;
+  --accent: #24392b;
+  /* Camel, not taupe: it is read on the bordeaux and navy sections. */
+  --gold: #bb9c71;
+  --deep: #441928;
+  --deep-text: #ece8da;
+  --deep-soft: #cdb5bd;
+  --closing: #1e2a48;
+  --closing-soft: #b8b6c4;
+  --logo-filter: grayscale(1) brightness(0.15);
+  --tint-1: #eadde5;
+  --tint-2: #dde5df;
+  --tint-3: #e2e4ec;
+  color-scheme: light;
+}
+
+[data-season='winter'][data-time='evening'] {
+  --bg: #11172a;
+  --surface: #1a2238;
+  --text: #ece8da;
+  --soft: #b3b0c2;
+  --border: rgb(236 232 218 / 0.1);
+  --primary: #b07aa1;
+  --primary-hover: #c48fb5;
+  --on-primary: #11172a;
+  --accent: #7fa08a;
+  --gold: #b3a68e;
+  --deep: #2a1019;
+  --deep-text: #ece8da;
+  --deep-soft: #c4a9b2;
+  --closing: #0b1020;
+  --closing-soft: #a9a7b6;
+  --logo-filter: grayscale(1) brightness(0) invert(0.9);
+  --tint-1: #2e2033;
+  --tint-2: #1c2b25;
+  --tint-3: #1f2944;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  padding: 112px 0;
+}
+
+.kicker {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+h2 {
+  margin-top: 12px;
+  font-family: var(--font-title);
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -1.4px;
+  line-height: 1.12;
+}
+
+.lede {
+  margin-top: 14px;
+  max-width: 600px;
+  font-size: 18px;
+  color: var(--soft);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    transform 0.25s;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s;
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn.primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn.outline {
+  border: 1.5px solid var(--text);
+}
+
+.btn.outline:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Blocks fade in as they enter the viewport, only when JavaScript runs. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 920px) {
+  section {
+    padding: 80px 0;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+}

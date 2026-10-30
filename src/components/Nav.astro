@@ -1,0 +1,102 @@
+---
+import { person } from '../data/profile';
+
+const links = [
+  { href: '#expertise', label: 'Expertise' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#certifications', label: 'Certifications' },
+  { href: '#research', label: 'Research' },
+];
+---
+
+<nav id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      {person.firstName} {person.lastName}
+    </a>
+    <div class="menu">
+      {links.map(({ href, label }) => (
+        <a href={href}>{label}</a>
+      ))}
+      <a class="btn primary small" href="#contact">
+        Get in touch
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // A hairline under the navigation once the page has scrolled.
+  const nav = document.getElementById('nav');
+  const update = () => nav?.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+</script>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  nav.scrolled {
+    border-bottom-color: var(--border);
+  }
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    font-family: var(--font-name);
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--soft);
+  }
+
+  .menu a:not(.btn):hover {
+    color: var(--primary);
+  }
+
+  .small {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 920px) {
+    .wrap {
+      height: 60px;
+    }
+
+    .logo {
+      font-size: 15px;
+    }
+
+    .menu a:not(.btn) {
+      display: none;
+    }
+
+    .small {
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  }
+</style>

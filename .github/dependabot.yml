@@ -1,0 +1,20 @@
+# Monthly, grouped: one pull request per ecosystem rather than one per package.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly
+    groups:
+      npm:
+        patterns: ['*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']

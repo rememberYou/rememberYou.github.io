@@ -1,0 +1,30 @@
+---
+import Certifications from '../components/Certifications.astro';
+import Companies from '../components/Companies.astro';
+import Contact from '../components/Contact.astro';
+import Experience from '../components/Experience.astro';
+import Expertise from '../components/Expertise.astro';
+import Figures from '../components/Figures.astro';
+import Hero from '../components/Hero.astro';
+import Nav from '../components/Nav.astro';
+import Research from '../components/Research.astro';
+import { person } from '../data/profile';
+import Base from '../layouts/Base.astro';
+
+const title = `${person.firstName} ${person.lastName} — ${person.role}`;
+const description = `${person.role}, ${person.credentials}. ${person.pitch}`;
+---
+
+<Base title={title} description={description}>
+  <Nav />
+  <main>
+    <Hero />
+    <Companies />
+    <Figures />
+    <Expertise />
+    <Experience />
+    <Certifications />
+    <Research />
+  </main>
+  <Contact />
+</Base>

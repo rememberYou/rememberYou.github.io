@@ -1,68 +1,34 @@
 {
-  "name": "personal-website",
-  "version": "1.0.0",
+  "name": "rememberyou.github.io",
+  "version": "2.0.0",
   "private": true,
-  "description": "The personal website of Terencio Agozzino",
+  "type": "module",
+  "description": "The personal website of Terencio Agozzino, Solutions Architect.",
   "homepage": "https://rememberyou.github.io/",
-  "bugs": "https://github.com/rememberYou/rememberYou.github.io/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rememberYou/rememberYou.github.io.git"
-  },
   "license": "MIT",
   "author": "Terencio Agozzino",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack --mode production",
-    "clean": "rimraf dist",
-    "deploy": "yarn build && gh-pages -d dist -b master",
-    "dev": "webpack-dev-server --mode development --open --hot --progress",
-    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet --fix"
+  "engines": {
+    "node": ">=22.22.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@fontsource/cinzel-decorative": "^5.3.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.7",
-    "@mui/material": "^6.4.7",
-    "favicons": "^7.3.1",
-    "react": "^19.2.8",
-    "react-dom": "^19.3.0"
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "5.3.0",
+    "@fontsource/cinzel-decorative": "5.3.0",
+    "astro": "7.4.0",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.1",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.68.0",
-    "@typescript-eslint/parser": "^8.62.1",
-    "css-loader": "^7.1.5",
-    "eslint": "^10.8.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.5.6",
-    "favicons-webpack-plugin": "^6.0.1",
-    "file-loader": "^6.2.0",
-    "gh-pages": "^6.3.0",
-    "html-webpack-plugin": "^5.6.7",
-    "husky": "^9.1.7",
-    "image-webpack-loader": "^8.1.0",
-    "tss-react": "^4.9.21",
-    "prettier": "^3.8.1",
-    "pretty-quick": "^4.2.2",
-    "sass": "^1.101.0",
-    "sass-loader": "^17.0.1",
-    "style-loader": "^4.0.0",
-    "svg-url-loader": "^8.0.0",
-    "ts-loader": "^9.6.2",
-    "typescript": "^5.9.3",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.108.3",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^6.0.0"
+    "@astrojs/check": "0.9.10",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "6.0.3"
   }
 }

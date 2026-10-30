@@ -1,0 +1,73 @@
+---
+import { figures } from '../data/profile';
+---
+
+<div class="wrap">
+  <dl class="figures">
+    {figures.map(({ value, label }) => (
+      <div class="figure reveal">
+        <dt>{label}</dt>
+        <dd>{value}</dd>
+      </div>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-block: 56px;
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: start;
+    padding: 0 32px;
+    border-left: 1px solid var(--border);
+  }
+
+  .figure:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  dd {
+    font-family: var(--font-title);
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: var(--primary);
+  }
+
+  dt {
+    margin-top: 8px;
+    max-width: 220px;
+    font-size: 15px;
+    color: var(--soft);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 920px) {
+    .figures {
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 0;
+      padding-block: 40px;
+    }
+
+    .figure {
+      padding: 0 16px;
+    }
+
+    .figure:nth-child(3) {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    dd {
+      font-size: 34px;
+    }
+  }
+</style>
