@@ -16,7 +16,15 @@ export default defineConfig({
     timezoneId: 'Europe/Brussels',
     locale: 'en-GB',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    {
+      name: 'site',
+      testIgnore: 'lighthouse.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    // Last, alone: performance is not measured while other tests run.
+    { name: 'lighthouse', testMatch: 'lighthouse.spec.ts', dependencies: ['site'] },
+  ],
   webServer: {
     command: `npm run preview -- --port ${port} --ignore-lock`,
     url: `http://localhost:${port}`,

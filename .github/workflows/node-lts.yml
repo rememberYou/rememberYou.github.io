@@ -1,0 +1,82 @@
+# Moves the site to the newest Node LTS, which Dependabot does not do: once a
+# month, if an LTS line newer than .nvmrc has been LTS for at least 14 days,
+# runs CI on it, and only if CI passes, commits the new .nvmrc to master,
+# deploys, and brings develop up to date.
+
+name: Node LTS
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      major: ${{ steps.lts.outputs.major }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: master
+
+      - name: Find a newer LTS line, at least 14 days old
+        id: lts
+        run: |
+          current=$(cat .nvmrc)
+          cutoff=$(date -d '14 days ago' +%s)
+          # For each LTS line, the date of its first LTS release.
+          major=$(curl -fsSL https://nodejs.org/dist/index.json | jq --argjson cutoff "$cutoff" '
+            [.[] | select(.lts != false)
+                 | {major: (.version | ltrimstr("v") | split(".")[0] | tonumber), date}]
+            | group_by(.major) | map(min_by(.date))
+            | map(select((.date + "T00:00:00Z" | fromdateiso8601) <= $cutoff) | .major)
+            | max')
+          echo "Current $current, newest LTS old enough: $major"
+          if [ "$major" -gt "$current" ]; then
+            echo "major=$major" >> "$GITHUB_OUTPUT"
+          fi
+
+  check:
+    needs: detect
+    if: needs.detect.outputs.major
+    uses: ./.github/workflows/ci.yml
+    with:
+      node-version: ${{ needs.detect.outputs.major }}
+
+  switch:
+    needs: [detect, check]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      MAJOR: ${{ needs.detect.outputs.major }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Commit the new .nvmrc to master
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "$MAJOR" > .nvmrc
+          git commit -am "build(node): move to Node $MAJOR, the active LTS"
+          git push origin master
+
+      # A push made with the workflow token does not trigger other workflows,
+      # so the deployment is started explicitly.
+      - name: Deploy
+        run: gh workflow run deploy.yml --ref master
+
+      - name: Bring develop up to date
+        run: |
+          git checkout develop
+          git merge --no-edit master
+          git push origin develop

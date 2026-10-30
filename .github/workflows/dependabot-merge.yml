@@ -1,6 +1,7 @@
 # Merges Dependabot's pull requests once CI has passed on them, deploys, and
-# brings develop up to date. CI (format, types, build, Lighthouse budgets) is
-# the gate: a pull request that fails it is left open for a person.
+# brings develop up to date. CI (format, types, build, browser tests,
+# Lighthouse budgets) is the gate: a pull request that fails it is left open,
+# with a comment that notifies the owner.
 #
 # It runs on workflow_run, after CI, and never checks out the pull request's
 # code: it only merges the exact commit CI tested.
@@ -64,3 +65,26 @@ jobs:
           git fetch origin master
           git merge --no-edit origin/master
           git push origin develop
+
+  notify:
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      RUN_URL: ${{ github.event.workflow_run.html_url }}
+      OWNER: ${{ github.repository_owner }}
+    steps:
+      - name: Say why the update was not merged
+        run: |
+          pr=$(gh pr list -R "$REPO" --head "$HEAD_BRANCH" --state open \
+            --json number,headRefOid --jq ".[] | select(.headRefOid == \"$HEAD_SHA\") | .number")
+          if [ -z "$pr" ]; then
+            exit 0
+          fi
+          gh pr comment "$pr" -R "$REPO" --body "@$OWNER CI failed on this update, so it was not merged and nothing was deployed. The site stays on the previous versions. Details: $RUN_URL"

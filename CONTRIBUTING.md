@@ -18,22 +18,22 @@ and hold no text of their own, except section headings.
 2. Run `npm run dev` and check the page in a light and a dark theme: the
    theme follows the clock, so change the hour, or set `data-season` and
    `data-time` on `<html>` in the browser's inspector.
-3. Before pushing: `npm run format`, then `npm run build && npm test && npm run lighthouse`.
+3. Before pushing: `npm run format`, then `npm run build && npm test`.
    The first time, `npx playwright install chromium` downloads the test browser.
 4. Open a pull request into `develop`. CI runs the same checks; it must pass.
 5. To publish, merge `develop` into `master`. `deploy.yml` builds and deploys.
 
 ## Standards the checks hold
 
-| Check                              | Budget                          | Where               |
-| ---------------------------------- | ------------------------------- | ------------------- |
-| Formatting                         | Prettier, no diff               | `npm run format`    |
-| Types                              | `astro check`, strict, 0 errors | `npm run build`     |
-| Browser tests                      | All pass                        | `tests/`            |
-| Lighthouse performance             | ≥ 95                            | `lighthouserc.json` |
-| Accessibility, best practices, SEO | 100                             | `lighthouserc.json` |
-| Layout shift (CLS)                 | ≤ 0.01                          | `lighthouserc.json` |
-| Page weight                        | ≤ 250 KB                        | `lighthouserc.json` |
+| Check                              | Budget                          | Where                      |
+| ---------------------------------- | ------------------------------- | -------------------------- |
+| Formatting                         | Prettier, no diff               | `npm run format`           |
+| Types                              | `astro check`, strict, 0 errors | `npm run build`            |
+| Browser tests                      | All pass                        | `tests/`                   |
+| Lighthouse performance             | ≥ 95                            | `tests/lighthouse.spec.ts` |
+| Accessibility, best practices, SEO | 100                             | `tests/lighthouse.spec.ts` |
+| Layout shift (CLS)                 | ≤ 0.01                          | `tests/lighthouse.spec.ts` |
+| Page weight                        | ≤ 250 KB                        | `tests/lighthouse.spec.ts` |
 
 Text colours must meet WCAG AA (4.5:1) in all four themes: a new colour is
 checked against every background it sits on.
@@ -54,17 +54,22 @@ checked against every background it sits on.
 
 Dependencies update themselves; nobody has to accept a pull request.
 
-- Every Monday, Dependabot opens one grouped pull request for npm and one for
-  GitHub Actions, against `master`, with releases at least 14 days old
-  (`cooldown` in `.github/dependabot.yml`).
-- CI runs on it: format, types, build, browser tests, Lighthouse budgets.
+- Every Monday, Dependabot opens, against `master` and with releases at least
+  14 days old (`cooldown` in `.github/dependabot.yml`), one grouped pull
+  request for the minor and patch updates of npm and one of GitHub Actions,
+  and one pull request per major update. Security fixes come as soon as they
+  are published.
+- CI runs on each: format, types, build, browser tests, Lighthouse budgets.
 - If CI passes, `dependabot-merge.yml` merges it, deploys, and merges `master`
   back into `develop`.
-- If CI fails, the pull request stays open and nothing ships. That is the one
-  case that needs a person: usually a major version that needs a code change.
+- If CI fails, the pull request stays open, nothing ships, and a comment
+  notifies the owner. A major that is not supported yet by another package
+  usually passes on its own later: Dependabot rebases it as the rest updates.
+- Node is not covered by Dependabot. On the 1st of each month, `node-lts.yml`
+  moves `.nvmrc` to the newest Node LTS that has been LTS for 14 days, if CI
+  passes on it, then deploys.
 - Every version is exact (`.npmrc` sets `save-exact`), in `package.json` and in
-  workflows (`actions/checkout@v7.0.1`, not `@v7`). Node follows the active LTS
-  (`.nvmrc`).
+  workflows (`actions/checkout@v7.0.1`, not `@v7`).
 
 ## Commits
 

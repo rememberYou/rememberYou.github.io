@@ -1,15 +1,22 @@
 # Checks a pull request before it is merged: formatting, types, a full build,
-# browser tests, and Lighthouse against the budgets in lighthouserc.json. It
-# deploys nothing.
+# then the browser tests and the Lighthouse budgets (tests/). It deploys
+# nothing.
 
 name: CI
 
 on:
   pull_request:
     branches: [develop, master]
+  # node-lts.yml runs the same checks on a newer Node before switching to it.
+  workflow_call:
+    inputs:
+      node-version:
+        description: Overrides .nvmrc.
+        type: string
+        required: false
 
 concurrency:
-  group: ci-${{ github.event.pull_request.number }}
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 permissions:
@@ -24,6 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v7.1.0
         with:
+          node-version: ${{ inputs.node-version }}
           node-version-file: .nvmrc
           cache: npm
 
@@ -36,13 +44,10 @@ jobs:
         run: npm run build
 
       # What a visitor sees: every section, image and link, the layout from a
-      # 320px phone up, the four themes, and the page without JavaScript.
-      - name: Browser tests
+      # 320px phone up, the four themes, and the page without JavaScript. Then,
+      # alone, Lighthouse: performance at least 95, accessibility, best
+      # practices and SEO at 100, no layout shift, a page under 250 KB.
+      - name: Browser tests and Lighthouse
         run: |
           npx playwright install --with-deps chromium
           npm test
-
-      # Fails if performance, accessibility, best practices or SEO drop below
-      # their budgets, or if the page grows past 250 KB.
-      - name: Lighthouse
-        run: npm run lighthouse

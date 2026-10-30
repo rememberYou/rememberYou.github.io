@@ -8,7 +8,7 @@ runs in the browser: the only JavaScript picks the theme and fades sections in.
 
 ## Working on it
 
-Node 24 (see `.nvmrc`).
+Node, the active LTS (see `.nvmrc`; it updates itself).
 
 ```bash
 npm ci
@@ -16,7 +16,7 @@ npm run dev           # http://localhost:4321, reloads on save
 npm run build         # type-checks, then builds into dist/
 npm run preview       # serves dist/ as it will be deployed
 npm run format        # Prettier, Astro files included
-npm run lighthouse    # Lighthouse against the budgets, on the last build
+npm test              # browser tests, then Lighthouse budgets, on the last build
 ```
 
 ## Where things are
@@ -54,6 +54,7 @@ served from this site.
 
 A push to `master` builds the site and publishes it with GitHub Actions
 (`deploy.yml`). Work happens on `develop`; pull requests are checked by `ci.yml`.
-Dependencies update and deploy themselves once CI passes (`dependabot-merge.yml`).
+Dependencies, and Node, update and deploy themselves once CI passes
+(`dependabot-merge.yml`, `node-lts.yml`).
 
 How to change the site, and the standards CI holds it to: [CONTRIBUTING.md](CONTRIBUTING.md).
