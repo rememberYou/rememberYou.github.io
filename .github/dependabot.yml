@@ -1,7 +1,11 @@
-# Dependencies update themselves. Each week Dependabot opens one grouped pull
-# request per ecosystem, against master, with releases at least 14 days old;
-# dependabot-merge.yml merges it and deploys once CI, Lighthouse included,
-# has passed. A pull request that fails CI stays open, and nothing ships.
+# Dependencies update themselves. Each week Dependabot opens, against master
+# and with releases at least 14 days old, one grouped pull request for the
+# minor and patch updates of each ecosystem, and one per major update, so a
+# major that breaks the build never holds back the others. dependabot-merge.yml
+# merges each one and deploys once CI has passed; one that fails stays open,
+# and Dependabot rebases it until a later release makes it pass.
+#
+# Node itself is not covered by Dependabot: node-lts.yml moves .nvmrc.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -13,11 +17,7 @@ updates:
     groups:
       npm:
         patterns: ['*']
-    ignore:
-      # @astrojs/check supports TypeScript ^5 || ^6. Lift this once it
-      # supports 7, or the build fails.
-      - dependency-name: typescript
-        update-types: ['version-update:semver-major']
+        update-types: [minor, patch]
 
   - package-ecosystem: github-actions
     directory: /
@@ -28,3 +28,4 @@ updates:
     groups:
       actions:
         patterns: ['*']
+        update-types: [minor, patch]
