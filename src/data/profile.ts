@@ -7,6 +7,8 @@ import type { ImageMetadata } from 'astro';
 import awsCloudPractitioner from '../assets/badges/aws-cloud-practitioner.png';
 import awsDeveloper from '../assets/badges/aws-developer.png';
 import awsDevopsPro from '../assets/badges/aws-devops-pro.png';
+import awsSaAssociate from '../assets/badges/aws-sa-assoc.png';
+import awsSaPro from '../assets/badges/aws-sa-pro.png';
 import awsSysops from '../assets/badges/aws-sysops.png';
 import azureAdmin from '../assets/badges/azure-admin.png';
 import azureAi from '../assets/badges/azure-ai.png';
@@ -66,7 +68,7 @@ export const figures = [
     value: '15+',
     label: 'Years of software development, 5+ of them in professional cloud & data roles',
   },
-  { value: '9', label: 'Active AWS, Azure & Scrum certifications' },
+  { value: '11', label: 'AWS, Azure & Scrum certifications' },
   { value: '900+', label: 'GitHub stars on open-source projects I built' },
   {
     value: '6',
@@ -256,6 +258,12 @@ export const certifications: { tier: string; items: Certification[] }[] = [
         year: '2024',
         badge: awsDevopsPro,
       },
+      {
+        name: 'AWS Certified Solutions Architect – Professional',
+        issuer: 'Amazon Web Services',
+        year: '2023',
+        badge: awsSaPro,
+      },
     ],
   },
   {
@@ -264,6 +272,7 @@ export const certifications: { tier: string; items: Certification[] }[] = [
       { name: 'Azure Administrator', issuer: 'Microsoft', year: '2026', badge: azureAdmin },
       { name: 'AWS SysOps Administrator', issuer: 'AWS', year: '2022', badge: awsSysops },
       { name: 'AWS Developer', issuer: 'AWS', year: '2022', badge: awsDeveloper },
+      { name: 'AWS Solutions Architect', issuer: 'AWS', year: '2021', badge: awsSaAssociate },
     ],
   },
   {
