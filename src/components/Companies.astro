@@ -109,4 +109,21 @@ const logos = await Promise.all(
       width: calc(var(--w) * 0.75);
     }
   }
+
+  /* When the six no longer fit on one line, full rows of three, then of two:
+     never one logo left alone on a row. */
+  @media (max-width: 640px) {
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      gap: 22px 12px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .logos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 </style>

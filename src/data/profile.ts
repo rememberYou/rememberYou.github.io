@@ -63,19 +63,6 @@ export const companies: Logo[] = [
   { name: 'Cronos', src: cronos, height: 42 },
 ];
 
-export const figures = [
-  {
-    value: '15+',
-    label: 'Years of software development, 5+ of them in professional cloud & data roles',
-  },
-  { value: '11', label: 'AWS, Azure & Scrum certifications' },
-  { value: '900+', label: 'GitHub stars on open-source projects I built' },
-  {
-    value: '6',
-    label: 'Client industries: health insurance, chemicals, logistics, engineering, sport, data',
-  },
-];
-
 export type Icon = 'compass' | 'shield' | 'chart' | 'people';
 
 export const expertise: { icon: Icon; title: string; summary: string; points: string[] }[] = [
@@ -246,6 +233,8 @@ export interface Certification {
   issuer: string;
   year: string;
   badge: ImageMetadata;
+  /** How many certifications the badge stands for, when more than one. */
+  count?: number;
 }
 
 export const certifications: { tier: string; items: Certification[] }[] = [
@@ -285,9 +274,27 @@ export const certifications: { tier: string; items: Certification[] }[] = [
         issuer: 'Microsoft',
         year: '2022–2023',
         badge: azureAi,
+        count: 2,
       },
       { name: 'Professional Scrum Master I', issuer: 'Scrum.org', year: '2022', badge: psm1 },
     ],
+  },
+];
+
+const certificationCount = certifications
+  .flatMap(({ items }) => items)
+  .reduce((total, { count = 1 }) => total + count, 0);
+
+export const figures = [
+  {
+    value: '15+',
+    label: 'Years of software development, 5+ of them in professional cloud & data roles',
+  },
+  { value: String(certificationCount), label: 'AWS, Azure & Scrum certifications' },
+  { value: '900+', label: 'GitHub stars on open-source projects I built' },
+  {
+    value: '6',
+    label: 'Client industries: health insurance, chemicals, logistics, engineering, sport, data',
   },
 ];
 

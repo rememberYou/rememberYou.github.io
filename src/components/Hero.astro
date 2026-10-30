@@ -15,7 +15,12 @@ import Download from './icons/Download.astro';
       {person.lastName}
     </h1>
     <p class="role reveal">
-      {person.role} <span aria-hidden="true">|</span> {person.credentials}
+      {person.role}
+      <span class="sep" aria-hidden="true">
+        {' |'}
+      </span>
+      {/* The space belongs to the credentials, so screen readers keep it without the bar. */}
+      <span class="credentials">{` ${person.credentials}`}</span>
     </p>
     <p class="pitch reveal">{person.pitch}</p>
     <div class="actions reveal">
@@ -69,7 +74,7 @@ import Download from './icons/Download.astro';
     letter-spacing: -0.3px;
   }
 
-  .role span {
+  .role .sep {
     color: var(--primary);
   }
 
@@ -121,12 +126,25 @@ import Download from './icons/Download.astro';
       0 30px 60px -30px rgb(20 14 8 / 0.45);
   }
 
+  /* Stacked, the text is centred above the photo, so both share one axis. */
   @media (max-width: 920px) {
     .hero {
       grid-template-columns: 1fr;
       gap: 48px;
       padding-top: 40px;
       padding-bottom: 72px;
+      text-align: center;
+    }
+
+    /* Centred lines of even length, with no word left alone on the last. */
+    .role,
+    .pitch {
+      margin-inline: auto;
+      text-wrap: balance;
+    }
+
+    .actions {
+      justify-content: center;
     }
 
     h1 {
@@ -147,8 +165,17 @@ import Download from './icons/Download.astro';
     }
   }
 
-  /* Phones: the two buttons share the row, or stack at full width. */
+  /* Phones: the two buttons share the row, or stack at full width. The
+     credentials take their own line, without a bar left at the end of one. */
   @media (max-width: 480px) {
+    .role .sep {
+      display: none;
+    }
+
+    .credentials {
+      display: block;
+    }
+
     .actions .btn {
       flex: 1 1 auto;
       justify-content: center;
