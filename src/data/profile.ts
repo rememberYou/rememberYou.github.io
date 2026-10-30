@@ -69,10 +69,10 @@ export const figures = [
     label: 'Years of software development, 5+ of them in professional cloud & data roles',
   },
   { value: '11', label: 'AWS, Azure & Scrum certifications' },
-  { value: '2', label: 'Peer-reviewed publications (Springer)' },
+  { value: '900+', label: 'GitHub stars on open-source projects I built' },
   {
     value: '6',
-    label: 'Client industries: insurance, chemicals, logistics, engineering, sport, data',
+    label: 'Client industries: health insurance, chemicals, logistics, engineering, sport, data',
   },
 ];
 
@@ -316,7 +316,7 @@ export const publications = [
 export const highlights = [
   {
     title: 'pyRDF2Vec · ★ 269',
-    text: 'Open-source library for knowledge-graph embeddings, on GitHub.',
+    text: 'Lead contributor, with 1,100+ commits, to this library for knowledge-graph embeddings.',
   },
   {
     title: 'GNU Emacs configuration · ★ 485',
