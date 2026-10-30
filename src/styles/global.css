@@ -22,7 +22,6 @@
   --deep-soft: #b8b6c4;
   --closing: #24392b;
   --closing-soft: #c4cbbf;
-  --logo-filter: grayscale(1) brightness(0.2) sepia(0.2);
   --tint-1: #f6e3da;
   --tint-2: #e5e9dc;
   --tint-3: #e0e3ec;
@@ -45,7 +44,6 @@
   --deep-soft: #a9a7b6;
   --closing: #1c2b20;
   --closing-soft: #b3bcae;
-  --logo-filter: grayscale(1) brightness(0) invert(0.92) sepia(0.15);
   --tint-1: #3a271e;
   --tint-2: #2b3022;
   --tint-3: #23283a;
@@ -69,7 +67,6 @@
   --deep-soft: #cdb5bd;
   --closing: #1e2a48;
   --closing-soft: #b8b6c4;
-  --logo-filter: grayscale(1) brightness(0.15);
   --tint-1: #eadde5;
   --tint-2: #dde5df;
   --tint-3: #e2e4ec;
@@ -92,7 +89,6 @@
   --deep-soft: #c4a9b2;
   --closing: #0b1020;
   --closing-soft: #a9a7b6;
-  --logo-filter: grayscale(1) brightness(0) invert(0.9);
   --tint-1: #2e2033;
   --tint-2: #1c2b25;
   --tint-3: #1f2944;
