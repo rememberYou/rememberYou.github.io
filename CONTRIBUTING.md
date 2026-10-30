@@ -52,7 +52,8 @@ checked against every background it sits on.
 
 - Every version is exact (`.npmrc` sets `save-exact`), in `package.json` and
   in workflows (`actions/checkout@v4.2.2`, not `@v4`).
-- Only stable releases at least two weeks old.
+- Only stable releases at least two weeks old. Dependabot enforces it with a
+  14-day `cooldown`.
 - Dependabot opens one grouped pull request a month for npm and one for
   GitHub Actions, into `develop`. Merge it when CI is green.
 - Node follows the active LTS (`.nvmrc`).
