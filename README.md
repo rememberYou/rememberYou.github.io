@@ -16,6 +16,7 @@ npm run dev           # http://localhost:4321, reloads on save
 npm run build         # type-checks, then builds into dist/
 npm run preview       # serves dist/ as it will be deployed
 npm run format        # Prettier, Astro files included
+npm run lighthouse    # Lighthouse against the budgets, on the last build
 ```
 
 ## Where things are
@@ -53,3 +54,5 @@ served from this site.
 
 A push to `master` builds the site and publishes it with GitHub Actions
 (`deploy.yml`). Work happens on `develop`; pull requests are checked by `ci.yml`.
+
+How to change the site, and the standards CI holds it to: [CONTRIBUTING.md](CONTRIBUTING.md).

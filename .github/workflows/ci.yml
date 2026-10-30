@@ -1,5 +1,5 @@
-# Checks a pull request before it is merged: formatting, types, and a full
-# build, which also optimises every image. It deploys nothing.
+# Checks a pull request before it is merged: formatting, types, a full build,
+# and Lighthouse against the budgets in lighthouserc.json. It deploys nothing.
 
 name: CI
 
@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    name: Format, types, build
+    name: Format, types, build, Lighthouse
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -33,3 +33,8 @@ jobs:
 
       - name: Types and build
         run: npm run build
+
+      # Fails if performance, accessibility, best practices or SEO drop below
+      # their budgets, or if the page grows past 250 KB.
+      - name: Lighthouse
+        run: npm run lighthouse
