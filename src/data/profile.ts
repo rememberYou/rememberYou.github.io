@@ -64,10 +64,16 @@ export const companies: Logo[] = [
 ];
 
 export const figures = [
-  { value: '15+', label: 'Years of coding, 5+ of them in professional cloud & data roles' },
+  {
+    value: '15+',
+    label: 'Years of software development, 5+ of them in professional cloud & data roles',
+  },
   { value: '11', label: 'AWS, Azure & Scrum certifications' },
   { value: '2', label: 'Peer-reviewed publications (Springer)' },
-  { value: '4', label: 'Languages: French, English, Dutch, Italian' },
+  {
+    value: '6',
+    label: 'Client industries: insurance, chemicals, logistics, engineering, sport, data',
+  },
 ];
 
 export type Icon = 'compass' | 'shield' | 'chart' | 'people';
@@ -184,7 +190,7 @@ export const experience: Employer[] = [
       },
       {
         role: 'Solutions Architect',
-        client: 'Logistics companies',
+        client: 'Logistics Companies',
         period: 'Aug – Nov 2025',
         place: 'Kontich, Belgium',
         summary:
