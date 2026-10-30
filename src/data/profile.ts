@@ -36,19 +36,28 @@ export const person = {
   credly: 'https://www.credly.com/users/terencio-agozzino/badges',
 } as const;
 
+/**
+ * A company logo, shown in its original colours. The parts drawn in
+ * `currentColor` (black or near-black in the original) take `ink` by day and
+ * the theme's text colour by evening, so no logo disappears on a dark
+ * background. Brand colours are left as they are.
+ */
 export interface Logo {
   name: string;
+  /** An SVG, inlined; or a single-colour PNG, used as a mask. */
   src: ImageMetadata;
   /** Display height in pixels on large screens; logos differ in proportions. */
   height: number;
+  /** The original colour of the parts drawn in `currentColor`. */
+  ink?: string;
 }
 
 export const companies: Logo[] = [
-  { name: 'Partenamut', src: partenamut, height: 32 },
-  { name: 'CBTW', src: cbtw, height: 22 },
-  { name: 'Deloitte', src: deloitte, height: 24 },
-  { name: 'Envalior', src: envalior, height: 30 },
-  { name: 'imec', src: imec, height: 24 },
+  { name: 'Partenamut', src: partenamut, height: 32, ink: '#1b1f55' },
+  { name: 'CBTW', src: cbtw, height: 22, ink: '#1c1c1c' },
+  { name: 'Deloitte', src: deloitte, height: 24, ink: '#0f0b0b' },
+  { name: 'Envalior', src: envalior, height: 30, ink: '#000000' },
+  { name: 'imec', src: imec, height: 24, ink: '#3c3c3b' },
   { name: 'Cronos', src: cronos, height: 42 },
 ];
 
