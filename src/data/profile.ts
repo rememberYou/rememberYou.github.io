@@ -94,71 +94,123 @@ export const expertise: { icon: Icon; title: string; summary: string; points: st
   },
 ];
 
-export interface Job {
+/** One assignment: for a client when there is one, for the employer otherwise. */
+export interface Mission {
+  role: string;
+  /** Who the work was for, when it was not the employer itself. */
+  client?: string;
   period: string;
   place: string;
-  role: string;
-  company: string;
   summary: string;
   stack: string[];
-  current?: boolean;
 }
 
-export const experience: Job[] = [
+/** An employer, and the missions done while employed there, newest first. */
+export interface Employer {
+  name: string;
+  period: string;
+  /** What the employment was, when it is more than its missions. */
+  summary?: string;
+  current?: boolean;
+  missions: Mission[];
+}
+
+export const experience: Employer[] = [
   {
+    name: 'CBTW',
     period: 'Apr 2026 – Present',
-    place: 'Brussels, Belgium · Hybrid',
-    role: 'Solutions Architect',
-    company: 'CBTW, for Partenamut',
-    summary:
-      'Cloud architectures on AWS and Azure, and RFPs. For Partenamut: a multi-account CI/CD pipeline factory, a central monitoring platform, intelligent document processing, and data ingestion into Redshift.',
-    stack: ['AWS CDK', 'CodePipeline', 'Step Functions', 'Bedrock'],
+    summary: 'Cloud architectures on AWS and Azure for clients, and contributions to RFPs.',
     current: true,
+    missions: [
+      {
+        role: 'Solutions Architect',
+        client: 'Partenamut',
+        period: 'Apr 2026 – Present',
+        place: 'Brussels, Belgium · Hybrid',
+        summary:
+          'A multi-account CI/CD pipeline factory, a central monitoring platform, intelligent document processing, and data ingestion into Redshift.',
+        stack: ['AWS CDK', 'CodePipeline', 'Step Functions', 'Bedrock'],
+      },
+    ],
   },
   {
+    name: 'Deloitte',
     period: 'Dec 2025 – Feb 2026',
-    place: 'Zaventem, Belgium',
-    role: 'Solutions Architect',
-    company: 'Deloitte',
-    summary:
-      'Secure AWS & Azure Terraform modules and starter kits to accelerate cloud adoption; security reviews and guardrails.',
-    stack: ['AWS', 'Azure', 'Terraform', 'EKS'],
+    missions: [
+      {
+        role: 'Solutions Architect',
+        period: 'Dec 2025 – Feb 2026',
+        place: 'Zaventem, Belgium',
+        summary:
+          'Secure AWS & Azure Terraform modules and starter kits to accelerate cloud adoption; security reviews and guardrails.',
+        stack: ['AWS', 'Azure', 'Terraform', 'EKS'],
+      },
+    ],
   },
   {
-    period: 'Aug – Nov 2025',
-    place: 'Kontich, Belgium',
-    role: 'Solutions Architect & Azure Data Engineer',
-    company: 'Nemeon',
-    summary:
-      'Microsoft Fabric environments for logistics clients, and an LLM-based summarisation of civil-engineering documents for Sparkle.',
-    stack: ['Microsoft Fabric', 'Azure Data Factory', 'Azure AI Foundry', 'Docker'],
+    name: 'Nemeon',
+    period: 'Nov 2021 – Nov 2025',
+    summary: 'Consultant, placed with clients in Belgium and the Netherlands.',
+    missions: [
+      {
+        role: 'Azure Data Engineer',
+        client: 'Sparkle',
+        period: 'Oct – Nov 2025',
+        place: 'Kontich, Belgium',
+        summary:
+          'LLM-based summarisation of civil-engineering documents with Azure AI Foundry, in a containerised Azure pipeline.',
+        stack: ['Azure AI Foundry', 'Azure Blob Storage', 'Docker', 'Python'],
+      },
+      {
+        role: 'Solutions Architect',
+        client: 'Logistics companies',
+        period: 'Aug – Nov 2025',
+        place: 'Kontich, Belgium',
+        summary:
+          'Microsoft Fabric environments and data pipelines from Boltrics and TAS, with data governance and quality.',
+        stack: ['Microsoft Fabric', 'Azure Data Factory', 'SQL'],
+      },
+      {
+        role: 'AWS Cloud Developer',
+        client: 'Envalior (former DSM)',
+        period: 'Sep 2022 – Aug 2025',
+        place: 'Geleen, Netherlands',
+        summary:
+          "SAP data provisioning with AWS Glue, the migration of manufacturing plants to AWS IoT Greengrass V2, and the move to Envalior's landing zone.",
+        stack: ['AWS CDK', 'Glue', 'IoT Greengrass', 'PySpark'],
+      },
+      {
+        role: 'Software Engineer',
+        client: 'SoccerLAB',
+        period: 'Aug – Sep 2022',
+        place: 'Hasselt, Belgium',
+        summary: 'A Svelte proof of concept against React and Angular, with a design system.',
+        stack: ['Svelte', 'TypeScript', 'Storybook', 'Tailwind CSS'],
+      },
+      {
+        role: 'Data Scientist',
+        client: 'Datavillage',
+        period: 'Jan – Apr 2022',
+        place: 'Liège, Belgium',
+        summary:
+          'A knowledge-graph migration and a faster recommendation system, with lower SPARQL and Cypher latency.',
+        stack: ['Neo4j', 'Python', 'DBpedia', 'Wikidata'],
+      },
+    ],
   },
   {
-    period: 'Sep 2022 – Aug 2025',
-    place: 'Geleen, Netherlands',
-    role: 'AWS Cloud Developer',
-    company: 'Envalior (former DSM), via Nemeon',
-    summary:
-      "SAP data provisioning with AWS Glue, the migration of manufacturing plants to AWS IoT Greengrass V2, and the move to Envalior's landing zone.",
-    stack: ['AWS CDK', 'Glue', 'IoT Greengrass', 'PySpark'],
-  },
-  {
-    period: '2022',
-    place: 'Liège & Hasselt, Belgium',
-    role: 'Data Scientist & Software Engineer',
-    company: 'Datavillage, SoccerLAB',
-    summary:
-      'A knowledge-graph migration for a recommendation system, and a Svelte proof of concept with a design system.',
-    stack: ['Neo4j', 'Python', 'Svelte', 'TypeScript'],
-  },
-  {
+    name: 'IDLab – imec',
     period: 'Feb – Jun 2021',
-    place: 'Ghent, Belgium',
-    role: 'Machine Learning Intern',
-    company: 'IDLab – imec',
-    summary:
-      "Built pyRDF2Vec, now a widely cited library for knowledge-graph embeddings, and evaluated BERT within RDF2Vec for my Master's thesis.",
-    stack: ['Python', 'Knowledge graphs', 'NLP', 'CI/CD'],
+    missions: [
+      {
+        role: 'Machine Learning Intern',
+        period: 'Feb – Jun 2021',
+        place: 'Ghent, Belgium',
+        summary:
+          "Built pyRDF2Vec, now a widely cited library for knowledge-graph embeddings, and evaluated BERT within RDF2Vec for my Master's thesis.",
+        stack: ['Python', 'Knowledge graphs', 'NLP', 'CI/CD'],
+      },
+    ],
   },
 ];
 
