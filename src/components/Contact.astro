@@ -6,6 +6,7 @@ const links = [
   { name: 'linkedin', label: 'LinkedIn', href: person.linkedin },
   { name: 'github', label: 'GitHub', href: person.github },
   { name: 'email', label: 'Email', href: `mailto:${person.email}` },
+  { name: 'cv', label: 'Download CV', href: person.cv },
 ] as const;
 ---
 
@@ -21,7 +22,11 @@ const links = [
     <ul class="links reveal">
       {links.map(({ name, label, href }) => (
         <li>
-          <a href={href} rel="noopener">
+          <a
+            href={href}
+            rel="noopener"
+            download={name === 'cv' ? 'Terencio-Agozzino-CV.pdf' : undefined}
+          >
             <Brand name={name} />
             {label}
           </a>
