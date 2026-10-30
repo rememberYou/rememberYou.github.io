@@ -9,14 +9,6 @@ import Download from './icons/Download.astro';
 
 <header class="wrap hero" id="top">
   <div>
-    <p class="tag reveal">
-      <span class="flag" aria-hidden="true">
-        <i></i>
-        <i></i>
-        <i></i>
-      </span>
-      {person.country}
-    </p>
     <h1 class="reveal">
       {person.firstName}
       <br />
@@ -61,39 +53,7 @@ import Download from './icons/Download.astro';
     padding-bottom: 96px;
   }
 
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: var(--soft);
-  }
-
-  .flag {
-    display: inline-grid;
-    grid-template-columns: repeat(3, 4px);
-    height: 12px;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .flag i:nth-child(1) {
-    background: #282019;
-  }
-
-  .flag i:nth-child(2) {
-    background: #f2c94c;
-  }
-
-  .flag i:nth-child(3) {
-    background: #c0392b;
-  }
-
   h1 {
-    margin-top: 18px;
     font-family: var(--font-name);
     font-weight: 400;
     font-size: 80px;
