@@ -18,7 +18,8 @@ and hold no text of their own, except section headings.
 2. Run `npm run dev` and check the page in a light and a dark theme: the
    theme follows the clock, so change the hour, or set `data-season` and
    `data-time` on `<html>` in the browser's inspector.
-3. Before pushing: `npm run format`, then `npm run build && npm run lighthouse`.
+3. Before pushing: `npm run format`, then `npm run build && npm test && npm run lighthouse`.
+   The first time, `npx playwright install chromium` downloads the test browser.
 4. Open a pull request into `develop`. CI runs the same checks; it must pass.
 5. To publish, merge `develop` into `master`. `deploy.yml` builds and deploys.
 
@@ -28,6 +29,7 @@ and hold no text of their own, except section headings.
 | ---------------------------------- | ------------------------------- | ------------------- |
 | Formatting                         | Prettier, no diff               | `npm run format`    |
 | Types                              | `astro check`, strict, 0 errors | `npm run build`     |
+| Browser tests                      | All pass                        | `tests/`            |
 | Lighthouse performance             | ≥ 95                            | `lighthouserc.json` |
 | Accessibility, best practices, SEO | 100                             | `lighthouserc.json` |
 | Layout shift (CLS)                 | ≤ 0.01                          | `lighthouserc.json` |
@@ -55,7 +57,7 @@ Dependencies update themselves; nobody has to accept a pull request.
 - Every Monday, Dependabot opens one grouped pull request for npm and one for
   GitHub Actions, against `master`, with releases at least 14 days old
   (`cooldown` in `.github/dependabot.yml`).
-- CI runs on it: format, types, build, Lighthouse budgets.
+- CI runs on it: format, types, build, browser tests, Lighthouse budgets.
 - If CI passes, `dependabot-merge.yml` merges it, deploys, and merges `master`
   back into `develop`.
 - If CI fails, the pull request stays open and nothing ships. That is the one
