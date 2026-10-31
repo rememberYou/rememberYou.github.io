@@ -139,7 +139,7 @@ export const experience: Employer[] = [
     current: true,
     missions: [
       {
-        role: 'Solutions Architect',
+        role: 'AWS Platform Engineer / Solutions Architect',
         client: 'Partenamut',
         period: 'Aug 2026 – Present',
         place: 'Brussels, Belgium · Hybrid',
