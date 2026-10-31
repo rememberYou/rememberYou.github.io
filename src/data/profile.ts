@@ -135,7 +135,7 @@ export interface Employer {
 export const experience: Employer[] = [
   {
     name: 'CBTW',
-    period: 'Apr 2026 – Present',
+    period: 'Mar 2026 – Present',
     summary: 'Cloud architectures on AWS and Azure for clients, and contributions to RFPs.',
     current: true,
     missions: [
@@ -152,12 +152,12 @@ export const experience: Employer[] = [
   },
   {
     name: 'Deloitte',
-    period: 'Dec 2025 – Feb 2026',
+    period: 'Dec 2025 – Jan 2026',
     summary: 'Cloud platform proposals for clients.',
     missions: [
       {
         role: 'Solutions Architect',
-        period: 'Dec 2025 – Feb 2026',
+        period: 'Dec 2025 – Jan 2026',
         place: 'Zaventem, Belgium',
         summary:
           'Secure AWS & Azure Terraform modules and starter kits to accelerate cloud adoption; security reviews and guardrails.',
