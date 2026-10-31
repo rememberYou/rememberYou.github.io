@@ -165,7 +165,7 @@ export const experience: Employer[] = [
     ],
   },
   {
-    name: 'Nemeon',
+    name: 'Nemeon · Cronos Group',
     period: 'Nov 2021 – Nov 2025',
     summary: 'Consultant, placed with clients in Belgium and the Netherlands.',
     missions: [
@@ -188,12 +188,21 @@ export const experience: Employer[] = [
         stack: ['Microsoft Fabric', 'Azure Data Factory', 'SQL'],
       },
       {
-        role: 'AWS Cloud Developer',
+        role: 'Solutions Architect',
         client: 'Envalior (former DSM)',
-        period: 'Sep 2022 – Aug 2025',
+        period: 'Jan – Aug 2025',
         place: 'Geleen, Netherlands',
         summary:
-          "SAP data provisioning with AWS Glue, the migration of manufacturing plants to AWS IoT Greengrass V2, and the move to Envalior's landing zone.",
+          "The migration of data use cases, with their compute and infrastructure, from DSM's AWS environment to Envalior's new landing zone, without disrupting operations.",
+        stack: ['AWS CDK', 'CodePipeline', 'Glue', 'Athena'],
+      },
+      {
+        role: 'AWS Cloud Developer',
+        client: 'Envalior (former DSM)',
+        period: 'Sep 2022 – Dec 2024',
+        place: 'Geleen, Netherlands',
+        summary:
+          'SAP data provisioning with Theobald and AWS Glue across raw, cleansed and harmonised layers, and the migration of manufacturing plants to AWS IoT Greengrass V2.',
         stack: ['AWS CDK', 'Glue', 'IoT Greengrass', 'PySpark'],
       },
       {
