@@ -32,10 +32,11 @@ const me = `${person.firstName[0]}. ${person.lastName}`;
       ))}
     </div>
     <ul class="highlights">
-      {highlights.map(({ title, text }) => (
+      {highlights.map(({ title, text, url, link }) => (
         <li class="reveal">
           <b>{title}</b>
           <span>{text}</span>
+          {url && <a href={url}>{link} →</a>}
         </li>
       ))}
     </ul>
@@ -128,6 +129,14 @@ const me = `${person.firstName[0]}. ${person.lastName}`;
     font-size: 14px;
     line-height: 1.55;
     color: var(--soft);
+  }
+
+  .highlights a {
+    display: inline-block;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary);
   }
 
   @media (max-width: 920px) {
