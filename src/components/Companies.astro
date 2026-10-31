@@ -1,23 +1,15 @@
 ---
-import { getImage } from 'astro:assets';
 import type { SvgComponent } from 'astro/types';
 
 import { companies } from '../data/profile';
 
-// SVG logos are inlined, so their currentColor parts follow the theme. A PNG
-// logo is single-colour; it is used as a mask over currentColor instead, which
-// renders it the same way.
-const logos = await Promise.all(
-  companies.map(async ({ name, src, height, ink }) => {
-    const width = Math.round((height * src.width) / src.height);
-    const style = `--h: ${height}px; --w: ${width}px; ${ink ? `--ink: ${ink};` : ''}`;
-    if (src.format === 'svg') {
-      return { name, style, Svg: src as unknown as SvgComponent };
-    }
-    const mask = await getImage({ src, height: height * 2, format: 'webp' });
-    return { name, style: `${style} --mask: url(${mask.src});` };
-  }),
-);
+// The logos are inlined SVGs, so their currentColor parts follow the theme and
+// they appear with the page, without a request of their own.
+const logos = companies.map(({ name, src, height, ink }) => {
+  const width = Math.round((height * src.width) / src.height);
+  const style = `--h: ${height}px; --w: ${width}px; ${ink ? `--ink: ${ink};` : ''}`;
+  return { name, style, Svg: src as unknown as SvgComponent };
+});
 ---
 
 <div class="companies">
@@ -26,11 +18,7 @@ const logos = await Promise.all(
     <ul class="logos">
       {logos.map(({ name, style, Svg }) => (
         <li style={style}>
-          {Svg ? (
-            <Svg role="img" aria-label={name} />
-          ) : (
-            <span class="mask" role="img" aria-label={name} />
-          )}
+          <Svg role="img" aria-label={name} />
         </li>
       ))}
     </ul>
@@ -77,16 +65,9 @@ const logos = await Promise.all(
     color: var(--text);
   }
 
-  .logos :global(svg),
-  .mask {
+  .logos :global(svg) {
     height: var(--h);
     width: var(--w);
-  }
-
-  .mask {
-    display: block;
-    background: currentColor;
-    mask: var(--mask) center / contain no-repeat;
   }
 
   @media (max-width: 920px) {
@@ -103,8 +84,7 @@ const logos = await Promise.all(
       gap: 22px 30px;
     }
 
-    .logos :global(svg),
-    .mask {
+    .logos :global(svg) {
       height: calc(var(--h) * 0.75);
       width: calc(var(--w) * 0.75);
     }

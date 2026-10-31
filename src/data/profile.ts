@@ -17,7 +17,7 @@ import psm1 from '../assets/badges/psm1.png';
 import cbtw from '../assets/logos/cbtw.svg';
 import cronos from '../assets/logos/cronos.svg';
 import deloitte from '../assets/logos/deloitte.svg';
-import envalior from '../assets/logos/envalior.png';
+import envalior from '../assets/logos/envalior.svg';
 import imec from '../assets/logos/imec.svg';
 import partenamut from '../assets/logos/partenamut.svg';
 
@@ -47,7 +47,10 @@ export const person = {
  */
 export interface Logo {
   name: string;
-  /** An SVG, inlined; or a single-colour PNG, used as a mask. */
+  /**
+   * An SVG, inlined. A logo only available as a single-colour PNG is wrapped
+   * in one, as a mask over a currentColor rectangle (see envalior.svg).
+   */
   src: ImageMetadata;
   /** Display height in pixels on large screens; logos differ in proportions. */
   height: number;
