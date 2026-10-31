@@ -153,6 +153,7 @@ export const experience: Employer[] = [
   {
     name: 'Deloitte',
     period: 'Dec 2025 – Feb 2026',
+    summary: 'Cloud platform proposals for clients.',
     missions: [
       {
         role: 'Solutions Architect',
@@ -184,7 +185,7 @@ export const experience: Employer[] = [
         period: 'Aug – Nov 2025',
         place: 'Kontich, Belgium',
         summary:
-          'Microsoft Fabric environments and data pipelines from Boltrics and TAS, with data governance and quality.',
+          'Microsoft Fabric environments and data pipelines from Boltrics and TAS for more than five logistics clients, with data governance and quality.',
         stack: ['Microsoft Fabric', 'Azure Data Factory', 'SQL'],
       },
       {
@@ -193,7 +194,7 @@ export const experience: Employer[] = [
         period: 'Jan – Aug 2025',
         place: 'Geleen, Netherlands',
         summary:
-          "The migration of data use cases, with their compute and infrastructure, from DSM's AWS environment to Envalior's new landing zone, without disrupting operations.",
+          "In a team of eight, the move of the data platform (around 30 business use cases) from DSM's AWS environment to Envalior's new landing zone, without disrupting operations.",
         stack: ['AWS CDK', 'CodePipeline', 'Glue', 'Athena'],
       },
       {
@@ -202,7 +203,7 @@ export const experience: Employer[] = [
         period: 'Sep 2022 – Dec 2024',
         place: 'Geleen, Netherlands',
         summary:
-          'SAP data provisioning with Theobald and AWS Glue across raw, cleansed and harmonised layers, and the migration of manufacturing plants to AWS IoT Greengrass V2.',
+          'SAP data provisioning with Theobald and AWS Glue across raw, cleansed and harmonised layers, and four manufacturing plants moved to AWS IoT Greengrass V2.',
         stack: ['AWS CDK', 'Glue', 'IoT Greengrass', 'PySpark'],
       },
       {
