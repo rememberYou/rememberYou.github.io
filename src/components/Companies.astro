@@ -14,8 +14,8 @@ const logos = companies.map(({ name, src, height, ink }) => {
 
 <div class="companies">
   <div class="wrap">
-    <p class="label">Experience with</p>
-    <ul class="logos">
+    <p class="label reveal">Experience with</p>
+    <ul class="logos reveal">
       {logos.map(({ name, style, Svg }) => (
         <li style={style}>
           <Svg role="img" aria-label={name} />
