@@ -36,6 +36,7 @@ export const person = {
   credly: 'https://www.credly.com/users/terencio-agozzino/badges',
   /** Served from public/; replace the file there to update it. */
   cv: '/terencio-agozzino-cv.pdf',
+  thesis: '/terencio-agozzino-master-thesis.pdf',
 } as const;
 
 /**
@@ -116,6 +117,8 @@ export interface Mission {
   period: string;
   place: string;
   summary: string;
+  /** A phrase of the summary that downloads a document, such as a thesis. */
+  link?: { text: string; url: string };
   stack: string[];
 }
 
@@ -222,6 +225,7 @@ export const experience: Employer[] = [
         place: 'Ghent, Belgium',
         summary:
           "Built pyRDF2Vec, now a widely cited library for knowledge-graph embeddings, and evaluated BERT within RDF2Vec for my Master's thesis.",
+        link: { text: "Master's thesis", url: person.thesis },
         stack: ['Python', 'Knowledge graphs', 'NLP', 'CI/CD'],
       },
     ],
@@ -332,5 +336,7 @@ export const highlights = [
   {
     title: 'Master in Computer & Systems Engineering',
     text: 'Haute École en Hainaut, Mons · 2021',
+    url: person.thesis,
+    link: 'Read the thesis',
   },
 ];

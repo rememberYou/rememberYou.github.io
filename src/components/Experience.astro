@@ -1,5 +1,12 @@
 ---
-import { experience } from '../data/profile';
+import { experience, type Mission } from '../data/profile';
+
+/** Splits a summary around its linked phrase, when it has one. */
+function split({ summary, link }: Mission): (string | NonNullable<Mission['link']>)[] {
+  const at = link ? summary.indexOf(link.text) : -1;
+  if (!link || at < 0) return [summary];
+  return [summary.slice(0, at), link, summary.slice(at + link.text.length)];
+}
 ---
 
 <section id="experience" class="experience" aria-labelledby="experience-title">
@@ -28,7 +35,17 @@ import { experience } from '../data/profile';
                 <p class="meta">
                   {missions.length > 1 ? `${mission.period} · ${mission.place}` : mission.place}
                 </p>
-                <p class="summary">{mission.summary}</p>
+                <p class="summary">
+                  {split(mission).map((part) =>
+                    typeof part === 'string' ? (
+                      part
+                    ) : (
+                      <a href={part.url} download>
+                        {part.text}
+                      </a>
+                    ),
+                  )}
+                </p>
                 <ul class="stack" aria-label="Technologies">
                   {mission.stack.map((tech) => (
                     <li>{tech}</li>
@@ -154,6 +171,19 @@ import { experience } from '../data/profile';
     font-size: 15.5px;
     line-height: 1.6;
     color: var(--soft);
+  }
+
+  .summary a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    transition: color 0.3s;
+  }
+
+  .summary a:hover {
+    color: var(--primary);
   }
 
   .stack {

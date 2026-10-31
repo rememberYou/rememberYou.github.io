@@ -57,9 +57,10 @@ test('loads every image', async ({ page }) => {
   expect(broken).toEqual([]);
 });
 
-test('serves the CV and the icons', async ({ request }) => {
+test('serves the CV, the thesis and the icons', async ({ request }) => {
   const files = {
     '/terencio-agozzino-cv.pdf': 'application/pdf',
+    '/terencio-agozzino-master-thesis.pdf': 'application/pdf',
     '/favicon.svg': 'image/svg+xml',
     '/favicon.ico': 'image/',
     '/apple-touch-icon.png': 'image/png',
