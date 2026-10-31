@@ -36,10 +36,10 @@ jobs:
           pr=$(gh pr list -R "$REPO" --head "$HEAD_BRANCH" --state open \
             --json number,author,baseRefName,headRefOid \
             --jq ".[] | select(.author.login == \"app/dependabot\"
-                             and .baseRefName == \"master\"
+                             and .baseRefName == \"main\"
                              and .headRefOid == \"$HEAD_SHA\") | .number")
           if [ -z "$pr" ]; then
-            echo "No open Dependabot pull request into master at $HEAD_SHA; nothing to do."
+            echo "No open Dependabot pull request into main at $HEAD_SHA; nothing to do."
             exit 0
           fi
           gh pr merge "$pr" -R "$REPO" --merge --delete-branch --match-head-commit "$HEAD_SHA"
@@ -49,7 +49,7 @@ jobs:
       # so the deployment is started explicitly.
       - name: Deploy
         if: env.MERGED == 'true'
-        run: gh workflow run deploy.yml -R "$REPO" --ref master
+        run: gh workflow run deploy.yml -R "$REPO" --ref main
 
       - uses: actions/checkout@v7.0.1
         if: env.MERGED == 'true'
@@ -62,8 +62,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin master
-          git merge --no-edit origin/master
+          git fetch origin main
+          git merge --no-edit origin/main
           git push origin develop
 
   notify:
