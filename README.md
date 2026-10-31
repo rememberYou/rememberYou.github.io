@@ -21,15 +21,15 @@ npm test              # browser tests, then Lighthouse budgets, on the last buil
 
 ## Where things are
 
-| Path                  | What it holds                                                           |
-| --------------------- | ----------------------------------------------------------------------- |
-| `src/data/profile.ts` | **All the content**: experience, certifications, publications, links    |
-| `src/components/`     | One component per section of the page                                   |
-| `src/layouts/`        | The HTML shell: metadata, fonts, theme selection                        |
-| `src/styles/`         | Design tokens for the four themes, and base styles                      |
-| `src/assets/`         | Portrait, badges and logos; optimised at build time (AVIF, WebP)        |
-| `public/`             | Files served as they are: favicons                                      |
-| `.github/workflows/`  | `ci.yml` checks pull requests; `deploy.yml` publishes `master` to Pages |
+| Path                  | What it holds                                                         |
+| --------------------- | --------------------------------------------------------------------- |
+| `src/data/profile.ts` | **All the content**: experience, certifications, publications, links  |
+| `src/components/`     | One component per section of the page                                 |
+| `src/layouts/`        | The HTML shell: metadata, fonts, theme selection                      |
+| `src/styles/`         | Design tokens for the four themes, and base styles                    |
+| `src/assets/`         | Portrait, badges and logos; optimised at build time (AVIF, WebP)      |
+| `public/`             | Files served as they are: favicons                                    |
+| `.github/workflows/`  | `ci.yml` checks pull requests; `deploy.yml` publishes `main` to Pages |
 
 To update the site, edit `src/data/profile.ts`. A new badge or logo goes in
 `src/assets/` and is imported there.
@@ -52,7 +52,7 @@ served from this site.
 
 ## Deployment
 
-A push to `master` builds the site and publishes it with GitHub Actions
+A push to `main` builds the site and publishes it with GitHub Actions
 (`deploy.yml`). Work happens on `develop`; pull requests are checked by `ci.yml`.
 Dependencies, and Node, update and deploy themselves once CI passes
 (`dependabot-merge.yml`, `node-lts.yml`).

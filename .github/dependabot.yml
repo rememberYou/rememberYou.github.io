@@ -1,4 +1,4 @@
-# Dependencies update themselves. Each week Dependabot opens, against master
+# Dependencies update themselves. Each week Dependabot opens, against main
 # and with releases at least 14 days old, one grouped pull request for the
 # minor and patch updates of each ecosystem, and one per major update, so a
 # major that breaks the build never holds back the others. dependabot-merge.yml

@@ -1,11 +1,11 @@
-# Builds the site and publishes it to GitHub Pages on every push to master.
+# Builds the site and publishes it to GitHub Pages on every push to main.
 # Requires Settings → Pages → Source: "GitHub Actions".
 
 name: Deploy
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 # One deployment at a time; a newer push does not cancel one in progress.

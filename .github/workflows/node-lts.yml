@@ -1,6 +1,6 @@
 # Moves the site to the newest Node LTS, which Dependabot does not do: once a
 # month, if an LTS line newer than .nvmrc has been LTS for at least 14 days,
-# runs CI on it, and only if CI passes, commits the new .nvmrc to master,
+# runs CI on it, and only if CI passes, commits the new .nvmrc to main,
 # deploys, and brings develop up to date.
 
 name: Node LTS
@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          ref: master
+          ref: main
 
       - name: Find a newer LTS line, at least 14 days old
         id: lts
@@ -59,24 +59,24 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          ref: master
+          ref: main
           fetch-depth: 0
 
-      - name: Commit the new .nvmrc to master
+      - name: Commit the new .nvmrc to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           echo "$MAJOR" > .nvmrc
           git commit -am "build(node): move to Node $MAJOR, the active LTS"
-          git push origin master
+          git push origin main
 
       # A push made with the workflow token does not trigger other workflows,
       # so the deployment is started explicitly.
       - name: Deploy
-        run: gh workflow run deploy.yml --ref master
+        run: gh workflow run deploy.yml --ref main
 
       - name: Bring develop up to date
         run: |
           git checkout develop
-          git merge --no-edit master
+          git merge --no-edit main
           git push origin develop

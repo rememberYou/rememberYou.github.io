@@ -22,7 +22,7 @@ and hold no text of their own, except section headings.
    The first time, `npx playwright install chromium webkit` downloads the test
    browsers: Chrome, and Safari's engine.
 4. Open a pull request into `develop`. CI runs the same checks; it must pass.
-5. To publish, merge `develop` into `master`. `deploy.yml` builds and deploys.
+5. To publish, merge `develop` into `main`. `deploy.yml` builds and deploys.
 
 ## Standards the checks hold
 
@@ -55,13 +55,13 @@ checked against every background it sits on.
 
 Dependencies update themselves; nobody has to accept a pull request.
 
-- Every Monday, Dependabot opens, against `master` and with releases at least
+- Every Monday, Dependabot opens, against `main` and with releases at least
   14 days old (`cooldown` in `.github/dependabot.yml`), one grouped pull
   request for the minor and patch updates of npm and one of GitHub Actions,
   and one pull request per major update. Security fixes come as soon as they
   are published.
 - CI runs on each: format, types, build, browser tests, Lighthouse budgets.
-- If CI passes, `dependabot-merge.yml` merges it, deploys, and merges `master`
+- If CI passes, `dependabot-merge.yml` merges it, deploys, and merges `main`
   back into `develop`.
 - If CI fails, the pull request stays open, nothing ships, and a comment
   notifies the owner. A major that is not supported yet by another package
