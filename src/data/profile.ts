@@ -136,17 +136,24 @@ export const experience: Employer[] = [
   {
     name: 'CBTW',
     period: 'Mar 2026 – Present',
-    summary: 'Cloud architectures on AWS and Azure for clients, and contributions to RFPs.',
     current: true,
     missions: [
       {
         role: 'Solutions Architect',
         client: 'Partenamut',
-        period: 'Apr 2026 – Present',
+        period: 'Aug 2026 – Present',
         place: 'Brussels, Belgium · Hybrid',
         summary:
           'A multi-account CI/CD pipeline factory, a central monitoring platform, AI document processing in production with Textract and Bedrock, and 18 tables loaded daily into Redshift.',
         stack: ['AWS CDK', 'CodePipeline', 'Step Functions', 'Bedrock'],
+      },
+      {
+        role: 'Solutions Architect',
+        period: 'Mar – Aug 2026',
+        place: 'Brussels, Belgium',
+        summary:
+          'RFP responses on AWS and Azure, the AWS Partner Network work that keeps CBTW an AWS Advanced Tier Services Partner, and the Terraform foundation of an internal AI platform on Bedrock.',
+        stack: ['Terraform', 'Bedrock', 'AgentCore', 'Textract'],
       },
     ],
   },
