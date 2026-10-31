@@ -34,15 +34,11 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="theme-color" content="#f4f0e2" />
     <script is:inline>
-      // The season from the month, day or evening from the hour, before the
-      // first paint so the page never flashes the wrong colours. The browser's
-      // own bar follows, through theme-color.
+      // The season from the month, and day or evening from whether the sun is
+      // up where the visitor is, before the first paint so the page never
+      // flashes the wrong colours; then every minute, so an open page darkens
+      // at sunset. The browser's own bar follows, through theme-color.
       (() => {
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const hour = now.getHours();
-        const season = month === 12 || month <= 3 ? 'winter' : 'autumn';
-        const time = hour >= 7 && hour < 19 ? 'day' : 'evening';
         const backgrounds = {
           'autumn-day': '#f4f0e2',
           'autumn-evening': '#1d1712',
@@ -50,12 +46,48 @@ const jsonLd = {
           'winter-evening': '#11172a',
         };
         const root = document.documentElement;
-        root.dataset.season = season;
-        root.dataset.time = time;
+        const meta = document.querySelector('meta[name="theme-color"]');
+
+        // Where the visitor is, roughly: Brussels for its neighbours, else the
+        // middle of their time zone, at a mid latitude.
+        const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const near = /^Europe\/(Brussels|Paris|Amsterdam|Luxembourg)$/.test(zone);
+        const year = new Date().getFullYear();
+        const standardOffset = Math.max(
+          new Date(year, 0, 1).getTimezoneOffset(),
+          new Date(year, 6, 1).getTimezoneOffset(),
+        );
+        const lat = near ? 50.85 : 45;
+        const lng = near ? 4.35 : -standardOffset / 4;
+
+        // Whether the sun is above the horizon: its position from the date,
+        // accurate to a few minutes of the published sunrise and sunset.
+        const rad = Math.PI / 180;
+        const sunUp = (date) => {
+          const d = date / 864e5 - 10957.5;
+          const g = (357.529 + 0.98560028 * d) * rad;
+          const l = (280.459 + 0.98564736 * d + 1.915 * Math.sin(g) + 0.02 * Math.sin(2 * g)) * rad;
+          const e = (23.439 - 3.6e-7 * d) * rad;
+          const ra = Math.atan2(Math.cos(e) * Math.sin(l), Math.cos(l));
+          const dec = Math.asin(Math.sin(e) * Math.sin(l));
+          const h = (280.46061837 + 360.98564736629 * d + lng) * rad - ra;
+          const altitude =
+            Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(h);
+          return altitude > Math.sin(-0.833 * rad);
+        };
+
+        const apply = () => {
+          const now = new Date();
+          const month = now.getMonth() + 1;
+          const season = month === 12 || month <= 3 ? 'winter' : 'autumn';
+          const time = sunUp(now) ? 'day' : 'evening';
+          root.dataset.season = season;
+          root.dataset.time = time;
+          meta?.setAttribute('content', backgrounds[`${season}-${time}`]);
+        };
+        apply();
         root.classList.add('js');
-        document
-          .querySelector('meta[name="theme-color"]')
-          ?.setAttribute('content', backgrounds[`${season}-${time}`]);
+        setInterval(apply, 60_000);
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />

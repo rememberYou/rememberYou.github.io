@@ -151,10 +151,15 @@ const themes = [
   { at: '2026-10-15T22:00:00+02:00', season: 'autumn', time: 'evening', bg: '#1d1712' },
   { at: '2027-01-15T10:00:00+01:00', season: 'winter', time: 'day', bg: '#ece8da' },
   { at: '2027-01-15T22:00:00+01:00', season: 'winter', time: 'evening', bg: '#11172a' },
+  // Day and evening follow the sun in Brussels, not fixed hours: dark soon
+  // after a 17:20 sunset in autumn, still light at 21:30 in June.
+  { at: '2026-10-31T17:45:00+01:00', season: 'autumn', time: 'evening', bg: '#1d1712' },
+  { at: '2026-06-21T21:30:00+02:00', season: 'autumn', time: 'day', bg: '#f4f0e2' },
+  { at: '2026-12-21T08:15:00+01:00', season: 'winter', time: 'evening', bg: '#11172a' },
 ];
 
 for (const { at, season, time, bg } of themes) {
-  test(`picks the ${season} ${time} theme from the clock`, async ({ page }) => {
+  test(`picks the ${season} ${time} theme at ${at}`, async ({ page }) => {
     await page.clock.setFixedTime(new Date(at));
     await page.goto('/');
 
