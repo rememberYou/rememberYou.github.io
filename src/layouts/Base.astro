@@ -132,6 +132,35 @@ const jsonLd = {
         { threshold: 0.1 },
       );
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Besides page views, GoatCounter counts what a visitor came for: a PDF
+      // downloaded (CV, thesis), an email started, or a link followed out.
+      declare global {
+        interface Window {
+          goatcounter?: { count: (vars: { path: string; title?: string; event: boolean }) => void };
+        }
+      }
+      document.addEventListener('click', (event) => {
+        const link = (event.target as Element).closest('a');
+        if (!link || !window.goatcounter) return;
+        const url = new URL(link.href, location.href);
+        const path =
+          url.protocol === 'mailto:'
+            ? 'email'
+            : url.pathname.endsWith('.pdf')
+              ? `download ${url.pathname.split('/').pop()}`
+              : url.host !== location.host
+                ? `out ${url.host}${url.pathname.replace(/\/$/, '')}`
+                : null;
+        if (path) window.goatcounter.count({ path, title: link.textContent?.trim(), event: true });
+      });
     </script>
+    <!-- Visits, counted without cookies or personal data: no consent needed. -->
+    <script
+      is:inline
+      data-goatcounter="https://rememberyou.goatcounter.com/count"
+      async
+      src="https://gc.zgo.at/count.js"
+    ></script>
   </body>
 </html>
