@@ -28,23 +28,27 @@ npm test              # browser tests, then Lighthouse budgets, on the last buil
 | `src/layouts/`        | The HTML shell: metadata, fonts, theme selection                      |
 | `src/styles/`         | Design tokens for the four themes, and base styles                    |
 | `src/assets/`         | Portrait, badges and logos; optimised at build time (AVIF, WebP)      |
-| `public/`             | Files served as they are: favicons                                    |
+| `public/`             | Files served as they are: favicons, PDFs, robots.txt, sitemap         |
+| `scripts/`            | `og-image.mjs` draws the card shown where the site is shared          |
 | `.github/workflows/`  | `ci.yml` checks pull requests; `deploy.yml` publishes `main` to Pages |
 
 To update the site, edit `src/data/profile.ts`. A new badge or logo goes in
-`src/assets/` and is imported there.
+`src/assets/` and is imported there. After a change to the name, the role or
+the portrait, redraw the sharing card with `npm run og-image`.
 
 ## Design
 
 The palette is an autumn / winter colour analysis. The page picks one of four
-themes from the visitor's clock, before the first paint:
+themes before the first paint: the season from the month, day or evening from
+whether the sun is up where the visitor is (Brussels for Belgium and its
+neighbours).
 
-| Theme           | When                          | Background | Accent     |
-| --------------- | ----------------------------- | ---------- | ---------- |
-| Autumn, day     | April to November, 7:00–19:00 | cream      | terracotta |
-| Autumn, evening | April to November, otherwise  | espresso   | terracotta |
-| Winter, day     | December to March, 7:00–19:00 | ivory      | blackberry |
-| Winter, evening | December to March, otherwise  | navy       | blackberry |
+| Theme           | When                        | Background | Accent     |
+| --------------- | --------------------------- | ---------- | ---------- |
+| Autumn, day     | April to November, sun up   | cream      | terracotta |
+| Autumn, evening | April to November, sun down | espresso   | terracotta |
+| Winter, day     | December to March, sun up   | ivory      | blackberry |
+| Winter, evening | December to March, sun down | navy       | blackberry |
 
 Every text colour meets WCAG AA (4.5:1) in every theme. Fonts: Cinzel Decorative
 for the name only, Plus Jakarta Sans for headings, Inter for text; all three are

@@ -1,8 +1,9 @@
 ---
 import { Font, getImage } from 'astro:assets';
 
+import og from '../assets/og.png';
 import portrait from '../assets/portrait.png';
-import { person } from '../data/profile';
+import { certifications, person } from '../data/profile';
 import '../styles/global.css';
 
 interface Props {
@@ -12,19 +13,43 @@ interface Props {
 
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = await getImage({ src: portrait, width: 800, format: 'jpg' });
+// The card shown where the site is shared; the portrait, where search engines
+// show the person.
+const ogImage = await getImage({ src: og, format: 'jpg' });
 const ogImageUrl = new URL(ogImage.src, Astro.site);
+const photo = await getImage({ src: portrait, width: 800, format: 'jpg' });
 
+// Who the page is about, for search engines: a Person with their work,
+// school, topics, credentials and the profiles that are also them.
+const issuers: Record<string, string> = {
+  AWS: 'Amazon Web Services',
+  Microsoft: 'Microsoft',
+  'Scrum.org': 'Scrum.org',
+};
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: `${person.firstName} ${person.lastName}`,
+  givenName: person.firstName,
+  familyName: person.lastName,
   jobTitle: person.role,
+  description,
   url: canonical.href,
-  image: ogImageUrl.href,
+  image: new URL(photo.src, Astro.site).href,
   email: `mailto:${person.email}`,
   address: { '@type': 'PostalAddress', addressCountry: 'BE', addressRegion: person.region },
-  sameAs: [person.linkedin, person.github],
+  worksFor: { '@type': 'Organization', ...person.employer },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: person.school },
+  knowsAbout: person.topics,
+  hasCredential: certifications
+    .flatMap(({ items }) => items)
+    .map(({ name, issuer }) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name,
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: issuers[issuer] ?? issuer },
+    })),
+  sameAs: [person.linkedin, person.github, person.credly],
 };
 ---
 
@@ -94,6 +119,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -106,9 +132,15 @@ const jsonLd = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content={String(ogImage.attributes.width)} />
     <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+    <meta
+      property="og:image:alt"
+      content={`${person.firstName} ${person.lastName}, ${person.role}`}
+    />
+    <meta property="og:site_name" content={`${person.firstName} ${person.lastName}`} />
+    <meta property="og:locale" content="en_GB" />
     <meta property="profile:first_name" content={person.firstName} />
     <meta property="profile:last_name" content={person.lastName} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <Font cssVariable="--font-name" preload />
     <Font cssVariable="--font-title" preload />

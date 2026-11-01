@@ -12,10 +12,9 @@ import { person } from '../data/profile';
 import Base from '../layouts/Base.astro';
 
 const title = `${person.firstName} ${person.lastName} — ${person.role}`;
-const description = `${person.role}, ${person.credentials}. ${person.pitch}`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={person.description}>
   <Nav />
   <main>
     <Hero />

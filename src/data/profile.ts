@@ -28,12 +28,26 @@ export const person = {
   credentials: 'AWS & Azure Certified',
   country: 'Belgium',
   region: 'Wallonia',
+  /** What search engines show under the title: at most about 155 characters. */
+  description:
+    'Solutions Architect, AWS & Azure certified: secure cloud foundations, data platforms and the automation that runs them, with a research background.',
   pitch:
     '5+ years across cloud, data and software: secure AWS & Azure foundations, data platforms, and the automation that runs them — with a research background in knowledge graphs.',
   email: 'terencio.agozzino@gmail.com',
   linkedin: 'https://www.linkedin.com/in/terencioagozzino/',
   github: 'https://github.com/rememberYou',
   credly: 'https://www.credly.com/users/terencio-agozzino/badges',
+  employer: { name: 'CBTW', url: 'https://cbtw.tech' },
+  school: 'Haute École en Hainaut',
+  /** What search engines associate with the name. */
+  topics: [
+    'Cloud architecture',
+    'Amazon Web Services',
+    'Microsoft Azure',
+    'Infrastructure as code',
+    'Data engineering',
+    'Knowledge graphs',
+  ],
   /** Served from public/; replace the file there to update it. */
   cv: '/terencio-agozzino-cv.pdf',
   thesis: '/terencio-agozzino-master-thesis.pdf',
