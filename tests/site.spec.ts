@@ -72,6 +72,41 @@ test('serves the CV, the thesis and the icons', async ({ request }) => {
   }
 });
 
+test('tells search engines and link previews who the page is about', async ({ page, request }) => {
+  await page.goto('/');
+  const meta = (selector: string) => page.locator(selector).getAttribute('content');
+
+  // Google shows about 155 characters of the description.
+  expect((await meta('meta[name="description"]'))!.length).toBeLessThanOrEqual(155);
+
+  // A wide card, so LinkedIn shows it large rather than as a thumbnail.
+  expect(await meta('meta[property="og:image:width"]')).toBe('1200');
+  expect(await meta('meta[property="og:image:height"]')).toBe('630');
+  const card = await request.get(new URL((await meta('meta[property="og:image"]'))!).pathname);
+  expect(card.status()).toBe(200);
+
+  const person = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent())!,
+  );
+  expect(person).toMatchObject({
+    '@type': 'Person',
+    worksFor: { name: 'CBTW' },
+    alumniOf: { name: 'Haute École en Hainaut' },
+  });
+  expect(person.hasCredential.length).toBeGreaterThan(5);
+
+  // The sitemap, announced in robots.txt, and Search Console's proof of ownership.
+  expect(await (await request.get('/robots.txt')).text()).toContain(
+    'Sitemap: https://rememberyou.github.io/sitemap.xml',
+  );
+  expect(await (await request.get('/sitemap.xml')).text()).toContain(
+    '<loc>https://rememberyou.github.io/</loc>',
+  );
+  expect(await (await request.get('/google7caeff32a4565021.html')).text()).toContain(
+    'google-site-verification: google7caeff32a4565021.html',
+  );
+});
+
 test('links only to anchors that exist, and to secure sites', async ({ page }) => {
   await page.goto('/');
   const hrefs = await page
