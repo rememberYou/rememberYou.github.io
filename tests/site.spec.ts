@@ -187,6 +187,36 @@ test('shows the name and the button in the navigation only once scrolled past', 
   await expect(button).toBeVisible();
 });
 
+test('counts the visit, and the CV, the thesis, an email and a link out', async ({ page }) => {
+  // A stand-in for GoatCounter's script, which records what it is given.
+  await page.route('https://gc.zgo.at/count.js', (route) =>
+    route.fulfill({
+      contentType: 'text/javascript',
+      body: `window.counted = [location.pathname];
+             window.goatcounter = { count: (vars) => window.counted.push(vars.path) };`,
+    }),
+  );
+  // Clicks are counted, not followed.
+  await page.route(/\.pdf$|linkedin\.com/, (route) => route.abort());
+  await page.goto('/');
+  await page.waitForFunction(() => 'goatcounter' in window);
+
+  await page.evaluate(() => document.addEventListener('click', (event) => event.preventDefault()));
+  await page.locator('#top a[download]').click();
+  await page.locator(`#experience a[href$="master-thesis.pdf"]`).click();
+  await page.locator('#contact a[href^="mailto:"]').click();
+  await page.locator('#contact a[href*="linkedin.com"]').click();
+  await page.locator('#top a[href="#contact"]').click();
+
+  expect(await page.evaluate(() => (window as unknown as { counted: string[] }).counted)).toEqual([
+    '/',
+    'download terencio-agozzino-cv.pdf',
+    'download terencio-agozzino-master-thesis.pdf',
+    'email',
+    'out www.linkedin.com/in/terencioagozzino',
+  ]);
+});
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
