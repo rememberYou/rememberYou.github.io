@@ -54,6 +54,19 @@ Every text colour meets WCAG AA (4.5:1) in every theme. Fonts: Cinzel Decorative
 for the name only, Plus Jakarta Sans for headings, Inter for text; all three are
 served from this site.
 
+## Analytics and search
+
+- **Visits** are counted by [GoatCounter](https://rememberyou.goatcounter.com),
+  without cookies or personal data, so no consent banner. Besides page views,
+  it counts CV and thesis downloads, email clicks and links followed out, as
+  events named `download …`, `email` and `out …` (see `Base.astro`). To stop
+  counting your own visits, open `/#toggle-goatcounter` once in each browser.
+- **Google Search Console** proves ownership with
+  `public/google7caeff32a4565021.html`: never delete it. The sitemap is
+  `public/sitemap.xml`, announced in `robots.txt`.
+- **Search engines and link previews** get the description, the sharing card
+  and a schema.org `Person` from `Base.astro`, fed by `src/data/profile.ts`.
+
 ## Deployment
 
 A push to `main` builds the site and publishes it with GitHub Actions
