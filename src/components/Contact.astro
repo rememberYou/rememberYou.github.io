@@ -24,18 +24,40 @@ const links = [
         <Brand name="email" />
         Send me an email
       </a>
-      <p>{person.email}</p>
+      {/* The address, copied in one tap; without JavaScript, plain text to select. */}
+      <p class="address">
+        <span class="plain">{person.email}</span>
+        <button
+          class="copy"
+          type="button"
+          data-email={person.email}
+          aria-label={`Copy the email address, ${person.email}`}
+        >
+          <span class="value">{person.email}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+            <path d="M5 15V6a2 2 0 0 1 2-2h8"></path>
+          </svg>
+          <span class="done" aria-hidden="true">
+            Copied
+          </span>
+        </button>
+        <span class="status sr-only" aria-live="polite"></span>
+      </p>
     </div>
     <ul class="links reveal">
       {links.map(({ name, label, href }) => (
         <li>
+          {/* Profiles open beside the site, so a visitor can come back to it. */}
           <a
             href={href}
             rel="noopener"
+            target={name === 'cv' ? undefined : '_blank'}
             download={name === 'cv' ? 'Terencio-Agozzino-CV.pdf' : undefined}
           >
             <Brand name={name} />
             {label}
+            {name !== 'cv' && <span class="sr-only"> (opens in a new tab)</span>}
           </a>
         </li>
       ))}
@@ -53,6 +75,27 @@ const links = [
     </span>
   </div>
 </footer>
+
+<script>
+  const copy = document.querySelector<HTMLButtonElement>('.copy');
+  const status = document.querySelector('.address .status');
+  copy?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copy.dataset.email!);
+    } catch {
+      // No clipboard access: select it instead, ready for the visitor to copy.
+      getSelection()?.selectAllChildren(copy.querySelector('.value')!);
+      return;
+    }
+    copy.classList.add('copied');
+    if (status) status.textContent = 'Email address copied';
+    window.goatcounter?.count({ path: 'copy email', title: 'Copy email', event: true });
+    setTimeout(() => {
+      copy.classList.remove('copied');
+      if (status) status.textContent = '';
+    }, 2000);
+  });
+</script>
 
 <style>
   .contact {
@@ -103,11 +146,75 @@ const links = [
   }
 
   /* The address itself, for whoever would rather copy it. */
-  .email p {
+  .address {
     margin-top: 12px;
     font-size: 14px;
     color: var(--closing-soft);
+  }
+
+  .plain {
     user-select: all;
+  }
+
+  .copy {
+    display: none;
+    position: relative;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+
+  :global(.js) .copy {
+    display: inline-flex;
+  }
+
+  :global(.js) .plain {
+    display: none;
+  }
+
+  /* Only where there is a pointer to hover with: on a phone, a tap would leave
+     the highlight behind. */
+  @media (hover: hover) {
+    .copy:hover:not(.copied) {
+      color: #ece8da;
+      background: rgb(236 232 218 / 0.08);
+    }
+  }
+
+  .copy svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* "Copied" stands where the icon was for two seconds; the icon keeps its
+     room, so the address does not move. */
+  .done {
+    display: none;
+    position: absolute;
+    left: calc(100% - 23px);
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .copy.copied svg {
+    visibility: hidden;
+  }
+
+  .copy.copied .done {
+    display: inline;
   }
 
   .links {
