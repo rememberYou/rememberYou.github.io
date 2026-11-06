@@ -251,6 +251,14 @@ test("paints past the page's edges in the theme's colour, then the footer's", as
   await page.locator('footer').scrollIntoViewIfNeeded();
   await expect(html).toHaveClass(/at-end/);
   await expect(html).toHaveCSS('background-color', await background('footer'));
+
+  // And Safari 26, which reads a fixed element at the bottom edge instead, finds
+  // one in the footer's colour there, and only there.
+  const edge = page.locator('.edge');
+  await expect(edge).toHaveCSS('background-color', await background('footer'));
+  await expect(edge).toHaveCSS('position', 'fixed');
+  await page.locator('#top').scrollIntoViewIfNeeded();
+  await expect(edge).toBeHidden();
 });
 
 test('counts the visit, and the CV, the thesis, an email and a link out', async ({ page }) => {

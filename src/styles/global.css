@@ -117,6 +117,24 @@ html.at-end {
   background: var(--closing);
 }
 
+/* Safari 26 on iPhone ignores both for its bottom bar: it takes the colour of
+   a fixed element touching the bottom edge. Shown only once the footer is on
+   screen, this strip lies over the footer, in its colour, so it never shows
+   itself; it only gives Safari the footer's green. */
+.edge {
+  display: none;
+  position: fixed;
+  inset-inline: 0;
+  bottom: -8px;
+  height: 12px;
+  background: var(--closing);
+  pointer-events: none;
+}
+
+html.at-end .edge {
+  display: block;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--text);
