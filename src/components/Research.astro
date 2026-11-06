@@ -16,7 +16,7 @@ const me = `${person.firstName[0]}. ${person.lastName}`;
     </div>
     <div class="papers">
       {publications.map(({ venue, title, authors, url }) => (
-        <a class="paper reveal" href={url} rel="noopener">
+        <a class="paper reveal" href={url} rel="noopener" target="_blank">
           <span class="venue">{venue}</span>
           <h3>{title}</h3>
           <p>
@@ -28,6 +28,7 @@ const me = `${person.firstName[0]}. ${person.lastName}`;
             ))}
           </p>
           <span class="more">Read the paper →</span>
+          <span class="sr-only"> (opens in a new tab)</span>
         </a>
       ))}
     </div>
@@ -36,7 +37,12 @@ const me = `${person.firstName[0]}. ${person.lastName}`;
         <li class="reveal">
           <b>{title}</b>
           <span>{text}</span>
-          {url && <a href={url}>{link} →</a>}
+          {/* A paper or a PDF opens beside the site rather than replacing it. */}
+          {url && (
+            <a href={url} rel="noopener" target="_blank">
+              {link} →<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          )}
         </li>
       ))}
     </ul>

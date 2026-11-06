@@ -72,6 +72,22 @@ test('serves the CV, the thesis and the icons', async ({ request }) => {
   }
 });
 
+test('opens other sites and read-only PDFs in a new tab, and says so', async ({ page }) => {
+  await page.goto('/');
+  const leaving = page.locator('a[href^="http"], a[href$=".pdf"]:not([download])');
+  expect(await leaving.count()).toBeGreaterThan(4);
+  for (const link of await leaving.all()) {
+    const href = await link.getAttribute('href');
+    await expect(link, href!).toHaveAttribute('target', '_blank');
+    await expect(link, href!).toHaveAttribute('rel', /noopener/);
+    await expect(link.locator('.sr-only'), href!).toHaveText('(opens in a new tab)');
+  }
+  // Downloads stay where they are.
+  for (const link of await page.locator('a[download]').all()) {
+    await expect(link).not.toHaveAttribute('target', '_blank');
+  }
+});
+
 test('tells search engines and link previews who the page is about', async ({ page, request }) => {
   await page.goto('/');
   const meta = (selector: string) => page.locator(selector).getAttribute('content');
@@ -259,6 +275,25 @@ test("paints past the page's edges in the theme's colour, then the footer's", as
   await expect(edge).toHaveCSS('position', 'fixed');
   await page.locator('#top').scrollIntoViewIfNeeded();
   await expect(edge).toBeHidden();
+});
+
+test('copies the email address in one click, and says so', async ({ page }) => {
+  // A stand-in clipboard, the same in every browser, that records what it is given.
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: async (text: string) => ((window as any).copied = text) },
+    });
+  });
+  await page.goto('/');
+
+  const copy = page.getByRole('button', { name: /Copy the email address/ });
+  await copy.click();
+  expect(await page.evaluate(() => (window as any).copied)).toBe('terencio.agozzino@gmail.com');
+  await expect(copy.getByText('Copied')).toBeVisible();
+  await expect(page.locator('.address .status')).toHaveText('Email address copied');
+
+  // Back to the icon after a moment.
+  await expect(copy.getByText('Copied')).toBeHidden({ timeout: 3000 });
 });
 
 test('counts the visit, and the CV, the thesis, an email and a link out', async ({ page }) => {

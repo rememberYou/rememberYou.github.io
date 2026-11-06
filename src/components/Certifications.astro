@@ -12,8 +12,8 @@ import { certifications, person } from '../data/profile';
         <h2 id="certifications-title">Proven on two clouds.</h2>
         <p class="lede">Certifications on AWS, Azure and Scrum, up to the professional level.</p>
       </div>
-      <a class="verify" href={person.credly} rel="noopener">
-        Verify on Credly →
+      <a class="verify" href={person.credly} rel="noopener" target="_blank">
+        Verify on Credly →<span class="sr-only"> (opens in a new tab)</span>
       </a>
     </div>
     {certifications.map(({ tier, items }, index) => (
