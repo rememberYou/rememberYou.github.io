@@ -165,6 +165,14 @@ const jsonLd = {
       );
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+      // Past the bottom of the page, the footer's colour rather than the theme's.
+      const footer = document.querySelector('footer');
+      if (footer) {
+        new IntersectionObserver(([entry]) =>
+          document.documentElement.classList.toggle('at-end', entry.isIntersecting),
+        ).observe(footer);
+      }
+
       // Besides page views, GoatCounter counts what a visitor came for: a PDF
       // downloaded (CV, thesis), an email started, or a link followed out.
       declare global {

@@ -238,6 +238,21 @@ test('starts the name near the top on a phone, under a navigation that floats', 
   await expect(page.locator('#nav')).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 });
 
+test("paints past the page's edges in the theme's colour, then the footer's", async ({ page }) => {
+  await page.goto('/');
+  const html = page.locator('html');
+  const background = (selector: string) =>
+    page.locator(selector).evaluate((el) => getComputedStyle(el).backgroundColor);
+
+  // At the top, what shows past the edge matches the page.
+  expect(await background('html')).toBe(await background('body'));
+
+  // At the bottom, behind Safari's toolbar, it matches the footer.
+  await page.locator('footer').scrollIntoViewIfNeeded();
+  await expect(html).toHaveClass(/at-end/);
+  await expect(html).toHaveCSS('background-color', await background('footer'));
+});
+
 test('counts the visit, and the CV, the thesis, an email and a link out', async ({ page }) => {
   // A stand-in for GoatCounter's script, which records what it is given.
   await page.route('https://gc.zgo.at/count.js', (route) =>

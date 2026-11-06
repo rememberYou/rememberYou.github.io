@@ -106,6 +106,15 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  /* What a browser shows past the page's edges: behind Safari's toolbar on
+     iPhone, and when a scroll bounces. The theme's background at the top, the
+     footer's green once the footer is on screen (set in Base.astro), so the
+     page never ends on a band of another colour. */
+  background: var(--bg);
+}
+
+html.at-end {
+  background: var(--closing);
 }
 
 body {
