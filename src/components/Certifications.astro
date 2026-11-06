@@ -172,9 +172,31 @@ import { certifications, person } from '../data/profile';
       align-items: start;
     }
 
-    .badges,
     .badges.pro {
       grid-template-columns: 1fr;
+    }
+
+    /* Below the two professional ones, the others sit two by two, the badge
+       above its name, so the list is half as long to scroll. */
+    .badges:not(.pro) {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .badges:not(.pro) .badge {
+      flex-direction: column;
+      align-items: start;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .badges:not(.pro) .badge :global(img) {
+      width: 46px;
+      height: 46px;
+    }
+
+    .badges:not(.pro) b {
+      font-size: 13.5px;
     }
 
     .pro .badge {

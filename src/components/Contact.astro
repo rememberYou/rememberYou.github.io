@@ -2,10 +2,10 @@
 import { person } from '../data/profile';
 import Brand from './icons/Brand.astro';
 
+// Email is the way to reach me; the others are for finding out more.
 const links = [
   { name: 'linkedin', label: 'LinkedIn', href: person.linkedin },
   { name: 'github', label: 'GitHub', href: person.github },
-  { name: 'email', label: 'Email', href: `mailto:${person.email}` },
   { name: 'cv', label: 'Download CV', href: person.cv },
 ] as const;
 ---
@@ -19,6 +19,13 @@ const links = [
     <p class="lede reveal">
       A platform to design, a migration to plan, or a pipeline to automate? Let's talk.
     </p>
+    <div class="email reveal">
+      <a href={`mailto:${person.email}`}>
+        <Brand name="email" />
+        Send me an email
+      </a>
+      <p>{person.email}</p>
+    </div>
     <ul class="links reveal">
       {links.map(({ name, label, href }) => (
         <li>
@@ -68,12 +75,47 @@ const links = [
     color: var(--closing-soft);
   }
 
+  .email {
+    margin-top: 40px;
+  }
+
+  .email a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 34px;
+    border-radius: 12px;
+    font-family: var(--font-title);
+    font-size: 17px;
+    font-weight: 600;
+    background: #ece8da;
+    color: #282019;
+    transition: transform 0.25s;
+  }
+
+  .email a:hover {
+    transform: translateY(-3px);
+  }
+
+  .email :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* The address itself, for whoever would rather copy it. */
+  .email p {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--closing-soft);
+    user-select: all;
+  }
+
   .links {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 40px;
+    gap: 12px;
+    margin-top: 28px;
     list-style: none;
   }
 
@@ -81,21 +123,27 @@ const links = [
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 15px 26px;
+    padding: 12px 22px;
     border-radius: 12px;
     font-weight: 600;
-    background: #ece8da;
-    color: #282019;
-    transition: transform 0.25s;
+    font-size: 15px;
+    color: #ece8da;
+    border: 1.5px solid rgb(236 232 218 / 0.35);
+    transition:
+      border-color 0.25s,
+      background 0.25s;
   }
 
   .links a:hover {
-    transform: translateY(-3px);
+    border-color: #ece8da;
+    background: rgb(236 232 218 / 0.08);
   }
 
+  /* On the dark green, the marks take the text colour. */
   .links :global(svg) {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
   }
 
   footer {
@@ -131,9 +179,18 @@ const links = [
 
   /* Phones: one button per row, all the same width. */
   @media (max-width: 480px) {
+    .email a,
+    .links {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .email a {
+      justify-content: center;
+    }
+
     .links {
       flex-direction: column;
-      max-width: 320px;
       margin-inline: auto;
     }
 
