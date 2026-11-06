@@ -222,6 +222,22 @@ test('shows the name and the button in the navigation only once scrolled past', 
   await expect(button).toBeVisible();
 });
 
+test('starts the name near the top on a phone, under a navigation that floats', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  // Measured where the name rests, not while it fades in.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  // The empty navigation no longer pushes the hero down: only its own margin.
+  const top = await page.locator('#top h1').evaluate((h1) => h1.getBoundingClientRect().top);
+  expect(top).toBeLessThanOrEqual(48);
+
+  // Once scrolled, it has its background again, over the content.
+  await page.locator('#experience').scrollIntoViewIfNeeded();
+  await expect(page.locator('#nav')).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+});
+
 test('counts the visit, and the CV, the thesis, an email and a link out', async ({ page }) => {
   // A stand-in for GoatCounter's script, which records what it is given.
   await page.route('https://gc.zgo.at/count.js', (route) =>
