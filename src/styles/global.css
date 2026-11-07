@@ -105,7 +105,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  /* The navigation's height, its 1px border included (see Nav.astro), so a
+     link lands with its section starting right under the bar. */
+  scroll-padding-top: 73px;
   /* What a browser shows past the page's edges: behind Safari's toolbar on
      iPhone, and when a scroll bounces. The theme's background at the top, the
      footer's green once the footer is on screen (set in Base.astro), so the
@@ -276,6 +278,10 @@ h2 {
 }
 
 @media (max-width: 920px) {
+  html {
+    scroll-padding-top: 61px;
+  }
+
   section {
     padding: 80px 0;
   }
