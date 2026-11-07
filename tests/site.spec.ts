@@ -277,6 +277,26 @@ test("paints past the page's edges in the theme's colour, then the footer's", as
   await expect(edge).toBeHidden();
 });
 
+test('folds the earliest roles under a button, and unfolds them', async ({ page }) => {
+  await page.goto('/');
+  const earlier = page.locator('#experience .earlier');
+  // Found by place, as its name changes from "Show" to "Hide".
+  const more = page.locator('#experience .more');
+  await expect(more).toHaveAttribute('aria-expanded', 'false');
+  await expect(more).toContainText('3 roles · 2021–2022');
+  for (const role of await earlier.all()) await expect(role).toBeHidden();
+  await expect(page.getByRole('heading', { name: 'Partenamut' })).toBeVisible();
+
+  await more.click();
+  await expect(more).toHaveAttribute('aria-expanded', 'true');
+  await expect(more).toContainText('Hide earlier experience');
+  await expect(page.getByRole('heading', { name: 'SoccerLAB' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'IDLab – imec' })).toBeVisible();
+
+  await more.click();
+  for (const role of await earlier.all()) await expect(role).toBeHidden();
+});
+
 test('copies the email address in one click, and says so', async ({ page }) => {
   // A stand-in clipboard, the same in every browser, that records what it is given.
   await page.addInitScript(() => {
@@ -312,6 +332,7 @@ test('counts the visit, and the CV, the thesis, an email and a link out', async 
 
   await page.evaluate(() => document.addEventListener('click', (event) => event.preventDefault()));
   await page.locator('#top a[download]').click();
+  await page.getByRole('button', { name: /Show earlier experience/ }).click();
   await page.locator(`#experience a[href$="master-thesis.pdf"]`).click();
   await page.locator('#contact a[href^="mailto:"]').click();
   await page.locator('#contact a[href*="linkedin.com"]').click();
@@ -320,6 +341,7 @@ test('counts the visit, and the CV, the thesis, an email and a link out', async 
   expect(await page.evaluate(() => (window as unknown as { counted: string[] }).counted)).toEqual([
     '/',
     'download terencio-agozzino-cv.pdf',
+    'show earlier experience',
     'download terencio-agozzino-master-thesis.pdf',
     'email',
     'out www.linkedin.com/in/terencioagozzino',
