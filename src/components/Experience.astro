@@ -7,6 +7,15 @@ function split({ summary, link }: Mission): (string | NonNullable<Mission['link'
   if (!link || at < 0) return [summary];
   return [summary.slice(0, at), link, summary.slice(at + link.text.length)];
 }
+
+// The oldest missions are folded under a button, so the timeline reads from
+// the current work; they stay in the page for search engines and without
+// JavaScript.
+const earlier = experience.flatMap(({ earlier, missions }) =>
+  missions.filter((mission) => earlier || mission.earlier),
+);
+const years = earlier.flatMap(({ period }) => period.match(/\d{4}/g) ?? []).sort();
+const span = years.length ? `${years[0]}–${years.at(-1)}` : '';
 ---
 
 <section id="experience" class="experience" aria-labelledby="experience-title">
@@ -16,9 +25,9 @@ function split({ summary, link }: Mission): (string | NonNullable<Mission['link'
       <h2 id="experience-title">Where I've made an impact.</h2>
       <p class="lede">By employer, with the clients I worked for as a consultant.</p>
     </div>
-    <ol class="timeline">
-      {experience.map(({ name, period, summary, current, missions }) => (
-        <li class:list={['employer', 'reveal', { current }]}>
+    <ol class="timeline" id="experience-list">
+      {experience.map(({ name, period, summary, current, earlier, missions }) => (
+        <li class:list={['employer', 'reveal', { current, earlier }]}>
           <div class="head">
             <h3>
               {name}
@@ -29,7 +38,7 @@ function split({ summary, link }: Mission): (string | NonNullable<Mission['link'
           </div>
           <ol class="missions">
             {missions.map((mission) => (
-              <li class="mission">
+              <li class:list={['mission', { earlier: mission.earlier }]}>
                 <h4>{mission.client ?? mission.role}</h4>
                 {mission.client && <p class="role">{mission.role}</p>}
                 <p class="meta">
@@ -57,12 +66,79 @@ function split({ summary, link }: Mission): (string | NonNullable<Mission['link'
         </li>
       ))}
     </ol>
+    {earlier.length > 0 && (
+      <button class="more" type="button" aria-expanded="false" aria-controls="experience-list">
+        <span class="label">Show earlier experience</span>
+        <span class="count">
+          {earlier.length} roles · {span}
+        </span>
+      </button>
+    )}
   </div>
 </section>
+
+<script>
+  const timeline = document.getElementById('experience-list');
+  const more = document.querySelector<HTMLButtonElement>('#experience .more');
+  more?.addEventListener('click', () => {
+    const open = timeline!.classList.toggle('open');
+    more.setAttribute('aria-expanded', String(open));
+    more.querySelector('.label')!.textContent = open
+      ? 'Hide earlier experience'
+      : 'Show earlier experience';
+    if (open) {
+      window.goatcounter?.count({ path: 'show earlier experience', event: true });
+    } else {
+      // The roles above it have folded away: bring the button back into view.
+      more.scrollIntoView({ block: 'center' });
+    }
+  });
+</script>
 
 <style>
   .experience {
     padding-top: 0;
+  }
+
+  /* Folded until the button opens them; without JavaScript, all shown. */
+  :global(.js) .timeline:not(.open) .earlier {
+    display: none;
+  }
+
+  .more {
+    display: none;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px 12px;
+    margin: 8px 0 0 36px;
+    padding: 12px 22px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    font: inherit;
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+
+  :global(.js) .more {
+    display: inline-flex;
+  }
+
+  .more:hover {
+    border-color: var(--primary);
+  }
+
+  .more .label {
+    font-family: var(--font-title);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .more .count {
+    font-size: 13px;
+    color: var(--soft);
   }
 
   .timeline {
@@ -209,6 +285,10 @@ function split({ summary, link }: Mission): (string | NonNullable<Mission['link'
       grid-template-columns: 1fr;
       gap: 18px;
       padding-left: 26px;
+    }
+
+    .more {
+      margin-left: 26px;
     }
   }
 </style>

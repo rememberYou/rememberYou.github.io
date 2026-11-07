@@ -137,6 +137,8 @@ export interface Mission {
   /** A phrase of the summary that downloads a document, such as a thesis. */
   link?: { text: string; url: string };
   stack: string[];
+  /** Folded under "Show earlier experience" until asked for. */
+  earlier?: boolean;
 }
 
 /** An employer, and the missions done while employed there, newest first. */
@@ -146,6 +148,8 @@ export interface Employer {
   /** What the employment was, when it is more than its missions. */
   summary?: string;
   current?: boolean;
+  /** Folded, with all its missions, under "Show earlier experience". */
+  earlier?: boolean;
   missions: Mission[];
 }
 
@@ -233,6 +237,7 @@ export const experience: Employer[] = [
       {
         role: 'Software Engineer',
         client: 'SoccerLAB',
+        earlier: true,
         period: 'Aug – Sep 2022',
         place: 'Hasselt, Belgium',
         summary: 'A Svelte proof of concept against React and Angular, with a design system.',
@@ -241,6 +246,7 @@ export const experience: Employer[] = [
       {
         role: 'Data Scientist',
         client: 'Datavillage',
+        earlier: true,
         period: 'Jan – Apr 2022',
         place: 'Liège, Belgium',
         summary:
@@ -251,6 +257,7 @@ export const experience: Employer[] = [
   },
   {
     name: 'IDLab – imec',
+    earlier: true,
     period: 'Feb – Jun 2021',
     missions: [
       {
